@@ -1,0 +1,172 @@
+# Es un lenguaje para estructurar contenidos... datos. No es algo propio de Ansible
+# Es una alternativa a XML, JSON
+# Hay muchos programas que usan YAML hoy en día:
+# - Ansible
+# - Docker - cocker compose
+# - Kurbenetes
+# - GitlabCI/CD - Github Actions, AzureDevops (los pipelines van en yaml)
+# - La red en un ordenador UBUNTU va con archivos yaml (NETPLAN)
+# - Y decenas o cientos más.
+# Se está imponiendo.
+#
+# Una gracia de YAML es que nos permite poner comentarios (no como JSON) Aleluya!
+# Otra gracia es que dentro de un archivo YAML puedo tener muchos documentos YAML. (no está en XML o JSON)
+# 
+# Cada documento va precedido de --- Menos el primero de ellos.
+# ... Es la marca de fin de documento. Es opcional... EN ARCHIVOS NO SE USA!
+# Sirve apra mandar documentos vía streaming
+---
+# En un documento tenemos un NODO!
+# Y hay 2 tipos de nodos en YAML: ESCALARES Y DE COLECCION
+# Escalares: Albergan un valor simple: Un texto, un número, un booleano.
+---
+# Números:
+-3.57
+---
+5
+---
+.nan #.Nan .NAN
+---
+-.inf # .Inf . INF (posiutivo o negativo)
+---
+# Booleanos:
+true # True TRUE
+---
+false # False FALSE
+---
+#Hoy en día estamos en la v1.2 de yaml. En 1.1 se admitían también:
+# yes Yes YES y
+# no No NO n
+# on ON On
+# off Off OFF
+# Ya no está soportado por la especificación.. pero muchos programas lo siguen admitiendo (ansible entre ellos)
+# NUNCA ESCRIBO UN BOOLEAN ASI. Si lo veo en código heredado lo cambio!
+---
+# Textos (OJO: CON DIFERENCIA LO MAS COMPLEJO EN YAML)
+Hola, soy "un 'texto 
+escrito 
+
+en #YAML
+---
+"Hola, soy \"un 'texto 
+escrito 
+
+en #YAML"
+---
+'Hola, soy "un ''texto 
+escrito 
+
+en #YAML'
+# La contrabarra solo funciona como caracter de escapen. entre comillas dobles. Esto es:
+# \n \t \r \\ solo funcionan como caracteres especiales entre comillas dobles
+
+# Los textos pueden tener saltos de LINEA, pero YAML Se los traga y reemplaza por espacios en blanco.
+# SALVO QUE ... ponga 2 seguidos. En ese caso, mantiene 1
+---
+# RESUMEN Y CONCLUSION:
+# La forma preferida y la única que debería usar a priori en YAML es sin comillas. Y SOLO PARA TEXTOS DE UNA LINEA.
+# Solo pondré comillas cuando haya un caracter que me obligue a ello.
+---
+# Para textos de más de una linea hay otras 2 sintaxis en YAML
+# Literal
+|1+
+  Escribo mi texto
+ Con los saltos de linea que quiera
+  Y espacios
+  Y caracteres raros:"'\" # lo que sea
+---
+# Folded
+>
+  este es un\ texto
+  muy 'largo '
+  y muy "guaay"
+---
+# Hay fechas (Se escriben en formato iso.. hay nulo: ~... hay binarios...)
+---
+# De colección: 
+
+# Listas ordenadas: Secuencia de NODOS
+- Item1
+-    22
+- True
+- # Un subitem puede ser otra lista
+  - subitem1
+  - subitem2
+-      - subitem1
+       - subitem2
+---
+
+# Hay una sintaxis alternativa a las listas:
+[item1, 33, TRUE] # NO SE RECOMIENDA!
+# Está por compatibilidad con json:
+---
+["item1", 33, true] # Esto es JSON.. pero también es YAML
+# Básicamente YAML se crea de forma que sea compatible con JSON... y se consigue al 99.9%
+# Por qué no nos gusta?
+# - Es más compleja de leer
+# - Este fichero va a acabar en un sistema de control de versiones (git)
+#   Git identifica cambios a nivel de linea.
+---
+# Dicho esto.. hay un caso de uso legítimo para esta sintaxis:
+# Listas vacias:
+[]
+---
+# Mapas desordenados: Una conjunto de valores, que se identifican por una clave (TABLA HASH, MAPA, DICCIONARIO, ARRAY ASOCIATIVO, OBJETO)
+clave1: valor1
+clave2: 33
+clave3: true
+clave4: 
+  - item 1
+  - item 2
+clave5: 
+    subclave:                1
+    subclave2:               true
+---
+# Este es el tipo de documento más habital en YAML... Los playbooks son una excepcion.
+---
+# Los mapas son desordenados:
+clave1: valor1
+clave2: true
+clave3: 33
+---
+clave1: valor1
+clave3: 33
+clave2: true
+# Estos 2 documentos son iguales!
+---
+# Hay una sintaxis alternativa a los mapas:
+{clave1: valor1, clave2: 33} # Y aplica lo mismo que con los [] para las listas. NO LA USAMOS.. mismos motivos.
+---
+# Hay un caso de uso legítimo:
+{}
+---
+# Esto es YAML.
+# Ahora bien.. YAML es solo una sintaxis básica.
+# Cada programa que usa yaml define su propio: ESQUEMA de datos (ESTRUCTURA)
+# Es decir, que tipos de nodos se deben escribir y que claves se deben usar en los datos.
+---
+usuario:
+  nombre: Ivan
+  apellidos:
+    - Osuna
+    - Ayuste
+  edad: 47
+---
+apiVersion:     v1
+kind:           Pod
+metadata:
+  name:         mi-pod
+spec:
+   ##..
+---
+- name: El primer play
+  hosts: SitiosDelInventarioDondeEjecutarse
+  tasks:
+    - name: Cada tarea tendrá un nombre...
+
+---
+
+# El nombre YAML:       Yet Another Markup Language
+# El nombre YAML:       YAML ain't Markup Language
+# No busques aqui marquitas que no las vas a encontrar
+# Va orientado a su escritura y lectura por seres humanos... con fuerte inspiración en python.

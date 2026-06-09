@@ -1,0 +1,3 @@
+- name:             Comprobar que el puerto esté abierto
+- name:             Comprobar que la URL responda desde la máquina
+- name:             Comprobar que la URL responda desde fuera (por ejemplo desde donde estoy ejecutando el playbook)

@@ -1,0 +1,2 @@
+- name:               Asegurar que el fichero de apache queda configurado con los detalles de la aplicación
+  notify:             CAMBIO_EN_CONFIGURACION_APACHE

@@ -214,3 +214,14 @@ Una vez registrada la tarea, puedo acceder a los datos que el módulo devuelva m
 
 Qué datos devuelve un MODULO? DEPENDE 100% del módulo.
 Toca mirar la documentación.
+
+
+---
+
+# Tags:
+      tags:
+        - test
+        - always # Es una palabra mágica...  aunque no se pida expresamente el tag test.. y se me pida que solo se ejecute otro tag, este bloque se ejecuta
+          # Aunque esté always... siempre puedo hacer luego en tiempo de ejecución un --skip-tags: always
+          # Si trabajo en positivo: --tags
+          # Si trabajo en negativo (excluir): --skip-tags

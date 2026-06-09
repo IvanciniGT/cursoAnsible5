@@ -5,49 +5,54 @@
   gather_facts: false
 
   pre_tasks:
+    # Carga de datos
     - name:               Cargar datos necesarios para la ejecución del playbook
     - name:               Obtener el Sistema Operativo destino
+    # Verificaciones
     - name:               Asegurar compatibilidad del playbook con el Sistema Operativo destino
     - name:               Verificar que las variables tienen información adecuada
+    # Requisitos
     - name:               Asegurar que está instalada la paquetería necesaria para el playbook
 
   tasks:
-    # Apache
-    - name:               Obtener la versión de Apache actualmente instalada
-    - name:               Asegurar que el servicio está parado si voy a instalar versión nueva
-    - name:               Asegurar que el Apache queda instalado en la versión que me interesa
-      notify:             CAMBIO_EN_APACHE
-    # Aplciacion
-    - name:               Asegurar que tengo la ultima version del repo en local en un directorio temporal 
-    - name:               Comprobar si hay cambios frente a lo actualmente desplegado -> true | false
-    - name:               Asegurar que la versión de la aplicación descargada queda desplegada solo si hay cambios en la app desplegada
-      block: 
-        - name:             Asegurar que existe el directorio de instalación
-        - name:             Asegurar que el servicio está parado antes de la copia de seguridad
-        - name:             Copia de seguridad del directorio de la aplicacion
-        - name:             Copiar lo que tengo en el temporal al path destino
-          notify:           CAMBIO_EN_APLICACION
-    # Configuración del apache para la apliciación
-    - name:               Asegurar que el fichero de apache queda configurado con los detalles de la aplicación
-      notify:             CAMBIO_EN_CONFIGURACION_APACHE
-    # Abrir los puertos en el firewall
-    - name:               Asegurar que los puertos usados por la app quedan abiertos en el firewall
+    - name:               Despliegue de la aplicación
+      block:
+        - name:                          Instalación apache
+          ansible.builtin.import_tasks:  tasks/tareas.instalacion.apache.yaml
+          tags: 
+              - instalacion-apache
+        - name:                          Despliegue aplicación
+          ansible.builtin.import_tasks:  tasks/tareas.despliegue.aplicacion.yaml
+          tags:
+              - despliegue-aplicacion
+        - name:                          Configuración de la aplicación en apache
+          ansible.builtin.import_tasks:  tasks/tareas.configuracion.apache.yaml
+          tags: 
+              - configuracion-apache
+        - name:                          Configurar conectividad de la aplicación
+          ansible.builtin.import_tasks:  tasks/tareas.configuracion.firewall.yaml
+          tags: 
+              - configuracion-firewall
+      rescue:
+        - name:             Notificar error en despliegue
+          changed_when:     true
+          notify:           ERROR_EN_DESPIEGUE
 
   post_tasks:
-    - name:               Comprobar que el puerto esté abierto
-      notify:             ERROR_EN_DESPIEGUE
-    - name:               Comprobar que la URL responda desde la máquina
-      notify:             ERROR_EN_DESPIEGUE
-    - name:               Comprobar que la URL responda desde fuera (por ejemplo desde donde estoy ejecutando el playbook)
-      notify:             ERROR_EN_DESPIEGUE
+    - block:
+        - name:                           Pruebas del servidor web y la app
+          ansible.builtin.import_tasks:   post-tasks/pruebas.yaml
+          tags:
+              - test
+              - always
+      rescue:
+        - name:             Notificar error en despliegue
+          changed_when:     true
+          notify:           ERROR_EN_DESPIEGUE
 
   handlers:
-    - name:               Asegurar que el servicio de apache queda reiniciado
-      listen:             
-                        - CAMBIO_EN_APACHE
-                        - CAMBIO_EN_APLICACION
-                        - CAMBIO_EN_CONFIGURACION_APACHE
+    - name:                           Asegurar que el servicio de apache queda reiniciado
+      ansible.builtin.import_tasks:   handlers/servicio.apache.yaml
 
-    - name:               Notificar problema
-      listen:             
-                        - ERROR_EN_DESPIEGUE
+    - name:                           Notificar problema
+      ansible.builtin.import_tasks:   handlers/notificacion.errores.yaml

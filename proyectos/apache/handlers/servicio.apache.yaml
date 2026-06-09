@@ -1,0 +1,5 @@
+- name:               Asegurar que el servicio de apache queda reiniciado
+  listen:             
+                    - CAMBIO_EN_APACHE
+                    - CAMBIO_EN_APLICACION
+                    - CAMBIO_EN_CONFIGURACION_APACHE

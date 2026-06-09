@@ -1,0 +1,10 @@
+
+- name:               Asegurar que tengo la ultima version del repo en local en un directorio temporal 
+- name:               Comprobar si hay cambios frente a lo actualmente desplegado -> true | false
+- name:               Asegurar que la versión de la aplicación descargada queda desplegada solo si hay cambios en la app desplegada
+  block: 
+    - name:             Asegurar que existe el directorio de instalación
+    - name:             Asegurar que el servicio está parado antes de la copia de seguridad
+    - name:             Copia de seguridad del directorio de la aplicacion
+    - name:             Copiar lo que tengo en el temporal al path destino
+      notify:           CAMBIO_EN_APLICACIONA

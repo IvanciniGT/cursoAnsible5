@@ -22,3 +22,6 @@ Necesitamos un directorio donde desplegar la web
     git clone
 
 Crear un archivo de configuracion en una carpeta del apache
+
+
+SoC: Separation of Concerns

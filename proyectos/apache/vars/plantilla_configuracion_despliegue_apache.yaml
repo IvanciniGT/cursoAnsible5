@@ -1,0 +1,17 @@
+# Este es el archivoque debesrellenarparahacertusuper despliegue!
+configuracion_despliegue_apache: 
+    apache:                 
+        version:    # Aqui pones la version del apache que quieres instalar
+        yum: 
+            paquete:
+            repo:
+        apt: 
+            paquete:
+            repo:
+    aplicacion:
+        repo:
+            url:
+            tag:
+        puerto:
+        fqdn:
+        path:

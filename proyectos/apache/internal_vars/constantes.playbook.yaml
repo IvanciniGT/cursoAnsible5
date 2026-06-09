@@ -1,0 +1,20 @@
+
+requisitos_despliegue_apache: 
+
+  paquetes:
+    - nombre:         git
+      version:      
+      yum:
+        repo:
+        paquete:
+      apt: 
+        repo:
+        paquete:
+    - nombre:         curl
+      version:      
+      yum:
+        repo:
+        paquete:
+      apt: 
+        repo:
+        paquete:

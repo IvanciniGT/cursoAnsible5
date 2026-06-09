@@ -1,36 +1,43 @@
 - name: Despliegue de Web en Apache
   hosts: all
-  vars:
-    # Veremos
-    despliegue_apache: 
-      apache:
-        version: 
-        yum: 
-          paquete:
-          repo:
-        apt: 
-          paquete:
-          repo:
-      aplicacion:
-        repo:
-          url:
-          tag:
-        puerto:
-        fqdn:
-        path:
-      
+  #vars:
+
   gather_facts: false
 
-    distro sobre la que estoy instanado (ubuntu, redhat) <- FACT
-
   pre_tasks:
-    - name:               NOMBRE DE LA TAREA
+    - name:               Cargar datos necesarios para la ejecución del playbook
+    - name:               Obtener el Sistema Operativo destino
+    - name:               Asegurar compatibilidad del playbook con el Sistema Operativo destino
+    - name:               Verificar que las variables tienen información adecuada
+    - name:               Asegurar que está instalada la paquetería necesaria para el playbook
+
   tasks:
-    - name:               NOMBRE DE LA TAREA
+    # Apache
+    - name:               Obtener la versión de Apache actualmente instalada
+    - name:               Asegurar que el servicio está parado si voy a instalar versión nueva
+    - name:               Asegurar que el Apache queda instalado en la versión que me interesa
+      notify:             CAMBIO_EN_APACHE
+    # Aplciacion
+    - name:               Asegurar que tengo la ultima version del repo en local en un directorio temporal 
+    - name:               Comprobar si hay cambios frente a lo actualmente desplegado -> true | false
+    - name:               Asegurar que la versión de la aplicación descargada queda desplegada solo si hay cambios en la app desplegada
+      block: 
+        - name:             Asegurar que existe el directorio de instalación
+        - name:             Asegurar que el servicio está parado antes de la copia de seguridad
+        - name:             Copia de seguridad del directorio de la aplicacion
+        - name:             Copiar lo que tengo en el temporal al path destino
+          notify:           CAMBIO_EN_APLICACION
+    # Configuración del apache para la apliciación
+    - name:               Asegurar que el fichero de apache queda configurado con los detalles de la aplicación
+      notify:             CAMBIO_EN_CONFIGURACION_APACHE
+
   post_tasks:
     - name:               NOMBRE DE LA TAREA
       notify:             NOMBRE EVENTO
 
   handlers:
-    - name:               NOMBRE DE LA TAREA
-      listen:             NOMBRE EVENTO
+    - name:               Asegurar que el servicio de apache queda reiniciado
+      listen:             
+                        - CAMBIO_EN_APACHE
+                        - CAMBIO_EN_APLICACION
+                        - CAMBIO_EN_CONFIGURACION_APACHE

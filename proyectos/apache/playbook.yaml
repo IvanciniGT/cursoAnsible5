@@ -1,8 +1,27 @@
 - name: Despliegue de Web en Apache
   hosts: all
   vars:
-  # Veremos
+    # Veremos
+    despliegue_apache: 
+      apache:
+        version: 
+        yum: 
+          paquete:
+          repo:
+        apt: 
+          paquete:
+          repo:
+      aplicacion:
+        repo:
+          url:
+          tag:
+        puerto:
+        fqdn:
+        path:
+      
   gather_facts: false
+
+    distro sobre la que estoy instanado (ubuntu, redhat) <- FACT
 
   pre_tasks:
     - name:               NOMBRE DE LA TAREA

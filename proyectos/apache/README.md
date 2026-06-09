@@ -12,3 +12,13 @@ NI SE OS OCURRA comenzar por los módulos! Eso es lo último que montamos del sc
 Lo único que queremos por ahora es la estructura general del playbook.
 
 Pensad en qué argumentos/parámetros pueden ser útiles.
+
+
+Monto apache:
+    apt
+    yum
+
+Necesitamos un directorio donde desplegar la web
+    git clone
+
+Crear un archivo de configuracion en una carpeta del apache

@@ -25,3 +25,8 @@ Crear un archivo de configuracion en una carpeta del apache
 
 
 SoC: Separation of Concerns
+---
+
+    Entorno Ansible (Linux)                                         Entorno remoto
+    Que necesita tener instalado ansible                            python
+    ANSIBLE             ------------------ssh/winrm--------------->

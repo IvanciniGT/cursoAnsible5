@@ -30,10 +30,16 @@
     # Configuración del apache para la apliciación
     - name:               Asegurar que el fichero de apache queda configurado con los detalles de la aplicación
       notify:             CAMBIO_EN_CONFIGURACION_APACHE
+    # Abrir los puertos en el firewall
+    - name:               Asegurar que los puertos usados por la app quedan abiertos en el firewall
 
   post_tasks:
-    - name:               NOMBRE DE LA TAREA
-      notify:             NOMBRE EVENTO
+    - name:               Comprobar que el puerto esté abierto
+      notify:             ERROR_EN_DESPIEGUE
+    - name:               Comprobar que la URL responda desde la máquina
+      notify:             ERROR_EN_DESPIEGUE
+    - name:               Comprobar que la URL responda desde fuera (por ejemplo desde donde estoy ejecutando el playbook)
+      notify:             ERROR_EN_DESPIEGUE
 
   handlers:
     - name:               Asegurar que el servicio de apache queda reiniciado
@@ -41,3 +47,7 @@
                         - CAMBIO_EN_APACHE
                         - CAMBIO_EN_APLICACION
                         - CAMBIO_EN_CONFIGURACION_APACHE
+
+    - name:               Notificar problema
+      listen:             
+                        - ERROR_EN_DESPIEGUE

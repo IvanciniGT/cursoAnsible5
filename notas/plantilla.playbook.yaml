@@ -1,0 +1,95 @@
+
+- name:         Aqui el nombre del play
+  hosts:        localhost 
+                # all
+                # host1, host2
+                # grupo1
+                # !host1
+                # !grupo1
+  vars:         # Conceptualmente definimos aquí constantes.
+    constante1: valor
+    constante2: valor2
+  gather_facts: false   # Recopilan información de las máquinas donde se ejecuta
+                        # El problema es que trae demasiada información y tarda la vida
+                        # Normalmente me pueden intersar 4 datos... no todo.
+                        # Para traer información concreta uso el módulo setup
+  
+  # Las tareas que ejecutan en el script (por orden)
+  pre_tasks:
+    - name:     Nombre de la pre tarea 1
+      #modulo: configución
+      notify:  # Sirve para activar handlers...
+               # Puedo poner un nombre de handler
+               Nombre del handler 1
+               # Puedo también poner un evento <<<< RECOMENDADO (desacopla)
+    - name:     Nombre de la pre tarea 2
+      #modulo: configución
+      notify:  Evento1
+
+  tasks:
+    - name:     Nombre de la tarea 1
+      #modulo: configución
+
+    - name:     Nombre de la tarea 2... que solo quiero que se ejecute en algunas condiciones
+      modulo: 
+        propiedad: # Y esta propiedad la quiero rellenar con el valor de una variable
+                   "{{mi_variable | upper}}"
+      when:     # Es el típico condicional de Programación Imperativa: IF
+                # Aquí hay que poner: Una expresión jinja o una lista de expresiones jinja
+            - ansible_distribution == "Ubuntu"
+            - ansible_distribution_major_version =="18"    # Si paso una lista, las expresiones se anidan con un AND
+                # En lugar de eso podría haber escrito un texto, y no una lista:
+                # ansible_distribution == "Ubuntu" and ansible_distribution_major_version =="18"
+      # La tarea solo se ejecuta si la expresión jinja devuelve true
+      # Si devuelve false, la tarea se salta (skipped)
+      register: tarea2
+      ignore_errors: true # Aquí iría una expresión JINJA... que no hace falta meterle {{}}
+    - name:     Nombre de la tarea 3 que solo se ejecuta si la anterior ha ido bien
+      #modulo: configución
+      # Para hacer algo como esto, es necesario GUARDAR el resultado de la operacion anterior.
+      # Eso se hace con la palabra REGISTER!
+      when:  tarea2 is failure      # Si la tarea se ejecutó sin problemas
+        # is skipped                # Si la tarea se ignoró (debido a un when...)
+        # is failure                # Si la tarea falló
+        # is changed                # Si la tarea provocó cambios en el entorno
+    - name:      Tarea que asegura un directorio
+      shell: |
+            #!/bin/bash
+
+            if [ -d "$DIRECTORIO" ]; then 
+                exit 0
+            fi
+
+            mkdir -p $DIRECTORIO
+            exit 100
+      register: directorio
+      changed_when: directorio.rc == 100
+      failed_when:  directorio.rc != 100 and  directorio.rc != 0
+      # Estas cosas están.. y a veces no hay más remedio
+      # Tratamos de evitarlas a toda costa!
+      # Necesitamos esto cuando usamos módulos "cortitos"
+      # Si uso módulos GUAYS! En general no me hace falta.
+      # Y Ansible tiene muchos módulos guays.
+    - name:      Tarea que asegura un directorio
+      ansible.builtin.file: # De aquí para abajo que lenguaje uso? DECLARATIVO: State!!!!!!!!
+        path:   /tmp/carpeta
+        state:  directory
+
+  post_tasks:
+    - name:     Nombre de la post tarea 1
+      #modulo: configución
+
+  # Los handlers no se ejecutan siempre...
+  # Solo se ejecutan cuando se activan... 
+  # Y se ejecutan cuando ha terminado el bloque (pre, tasks o post) desde el que han sido activados.
+  # En ocasiones raras, es necesario forzar la invocación de los handlers en medio de un bloque de tareas (pre, post, tasks)
+  #    Eso se hacía con un módulo llamado "meta", al que le puedo pedir que haga un "flush-handlers"
+  handlers:
+    - name:     Nombre del handler 1
+      #modulo: configución
+    - name:     Nombre del handler 2
+      #modulo: configución
+      listen:   Evento1
+    - name:     Nombre del handler3
+      #modulo: configución
+      listen:   Evento1

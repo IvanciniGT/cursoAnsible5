@@ -1,0 +1,17 @@
+- name: Despliegue de Web en Apache
+  hosts: all
+  vars:
+  # Veremos
+  gather_facts: false
+
+  pre_tasks:
+    - name:               NOMBRE DE LA TAREA
+  tasks:
+    - name:               NOMBRE DE LA TAREA
+  post_tasks:
+    - name:               NOMBRE DE LA TAREA
+      notify:             NOMBRE EVENTO
+
+  handlers:
+    - name:               NOMBRE DE LA TAREA
+      listen:             NOMBRE EVENTO

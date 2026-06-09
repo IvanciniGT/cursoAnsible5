@@ -549,8 +549,8 @@ Ahora bien.. un avez automatizada esa tarea... y automatizada la determinación 
 Nos toca meternos con el detalle de las tareas.
 Y hay 2 cosas que ver:
 - Atributos generales de ansible que podemos configurar a nivel de tarea:
-  - when_changed
-  - when_failed
+  - changedwhen
+  - failed_when
   - when
   - tags
   - ...

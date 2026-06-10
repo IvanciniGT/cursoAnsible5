@@ -5,20 +5,24 @@
   gather_facts: false
 
   pre_tasks:
-    # Carga de datos
-    - name:               Cargar datos necesarios para la ejecución del playbook
-    - name:               Obtener el Sistema Operativo destino
-    # Verificaciones
-    - name:               Asegurar compatibilidad del playbook con el Sistema Operativo destino
-    - name:               Verificar que las variables tienen información adecuada
-    # Requisitos
-    - name:               Asegurar que está instalada la paquetería necesaria para el playbook
+    - name:                           Obtener información necesaria para la ejecución del playbook
+      ansible.builtin.import_tasks:   pre-tasks/tareas.carga.datos.yaml
+      tags:
+          - always
+    - name:                           Verificar que es posible la ejecución del playbook con la información suministrada
+      ansible.builtin.import_tasks:   pre-tasks/tareas.verificacion.yaml
+      tags:
+          - always
+    - name:                           Asegurar los requisitos necesarios para la ejecución del playbook
+      ansible.builtin.import_tasks:   pre-tasks/tareas.requisitos.yaml
+      tags:
+          - always
 
   tasks:
-    - name:               Despliegue de la aplicación
+    - name:               Despliegue del apache/aplicación
       block:
         - name:                          Instalación apache
-          ansible.builtin.import_tasks:  tasks/tareas.instalacion.apache.yaml
+          ansible.builtin.include_tasks: "tasks/{{ansible_distribution | lower}}/tareas.instalacion.apache.yaml"
           tags: 
               - instalacion-apache
         - name:                          Despliegue aplicación

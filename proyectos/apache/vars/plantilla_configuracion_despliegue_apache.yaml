@@ -12,9 +12,10 @@ configuracion_despliegue_apache:
         repo:
             url:
             tag:
-        puerto:
-        fqdn:
-        path:
+        deploy:
+            puerto:
+            fqdn:
+            path:
         test:
             endpoint:   /
             statusCode: 200

@@ -1,0 +1,11 @@
+- name:               Cargar datos necesarios para la ejecución del playbook
+- name:               Obtener el Sistema Operativo destino
+  ansible.builtin.setup:
+    gather_subset:
+      - '!all'
+      - '!min'
+      - distribution
+    # Esto me da una variable llamada: ansible_distribution, que contiene la distro del SO destino:
+    # - Redhat
+    # - Ubuntu
+

@@ -7,4 +7,4 @@
     - name:             Asegurar que el servicio está parado antes de la copia de seguridad
     - name:             Copia de seguridad del directorio de la aplicacion
     - name:             Copiar lo que tengo en el temporal al path destino
-      notify:           CAMBIO_EN_APLICACIONA
+      notify:           CAMBIO_EN_APLICACION

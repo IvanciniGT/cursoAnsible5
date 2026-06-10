@@ -1,6 +1,10 @@
 
 requisitos_despliegue_apache: 
 
+  distros_soportadas:
+    - Ubuntu
+    - Redhat
+
   paquetes:
     - nombre:         git
       version:      

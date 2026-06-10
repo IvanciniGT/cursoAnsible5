@@ -1,5 +1,0 @@
-
-- name:               Obtener la versión de Apache actualmente instalada
-- name:               Asegurar que el servicio está parado si voy a instalar versión nueva
-- name:               Asegurar que el Apache queda instalado en la versión que me interesa 
-  notify:             CAMBIO_EN_APACHE

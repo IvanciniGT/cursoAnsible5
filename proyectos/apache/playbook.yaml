@@ -22,7 +22,7 @@
     - name:               Despliegue del apache/aplicación
       block:
         - name:                          Instalación apache
-          ansible.builtin.include_tasks: "tasks/{{ansible_distribution | lower}}/tareas.instalacion.apache.yaml"
+          ansible.builtin.include_tasks: "tasks/tareas.instalacion.apache.yaml"
           tags: 
               - instalacion-apache
         - name:                          Despliegue aplicación

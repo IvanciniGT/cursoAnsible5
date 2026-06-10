@@ -14,4 +14,10 @@
   
                           #ansible_distribution == "Ubuntu" or ansible_distribution == "Redhat" > Problemas de mnto futuro si aumentan SOs
 
-- name:                   Verificar que las variables tienen información adecuada
+- name:                   Verificar que la URL del repo de git se ha suministrado y es accesible
+  ansible.builtin.uri:
+    url: {{ configuracion_despliegue_apache.repo.url }}
+    method: GET
+    status_code: 200
+
+

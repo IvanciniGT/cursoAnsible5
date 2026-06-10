@@ -1,24 +1,22 @@
 
-requisitos_despliegue_apache: 
+distros_soportadas:
+  - Ubuntu
+  - Redhat
 
-  distros_soportadas:
-    - Ubuntu
-    - Redhat
-
-  paquetes:
-    - nombre:         git
-      version:      
-      yum:
-        repo:
-        paquete:
-      apt: 
-        repo:
-        paquete:
-    - nombre:         curl
-      version:      
-      yum:
-        repo:
-        paquete:
-      apt: 
-        repo:
-        paquete:
+paquetes:
+  - nombre:         git
+    version:      
+    yum:
+      repo:
+      paquete:
+    apt: 
+      repo:
+      paquete:
+  - nombre:         curl
+    version:      
+    yum:
+      repo:
+      paquete:
+    apt: 
+      repo:
+      paquete:

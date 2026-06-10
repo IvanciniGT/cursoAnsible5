@@ -3,19 +3,19 @@ configuracion_despliegue_apache:
     apache:                 
         version:    # Aqui pones la version del apache que quieres instalar
         yum: 
-            paquete:
+            paquete:   httpd
             repo:
         apt: 
-            paquete:
+            paquete:   apache2
             repo:
     aplicacion:
         repo:
             url:
             tag:
         deploy:
-            puerto:
+            puerto: 80
             fqdn:
-            path:
+            path:   /var/apache/aplicacion
         test:
             endpoint:   /
             statusCode: 200

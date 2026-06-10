@@ -1,0 +1,17 @@
+despliegue_apache_defaults: 
+    apache:
+        version:
+        yum: 
+            paquete:                httpd
+            repo:
+        apt: 
+            paquete:                apache2
+            repo:
+    aplicacion:
+        deploy:
+            puerto:                 80
+            fqdn:                   "*"
+            path:                   /var/apache/aplicacion
+        test:
+            endpoint:               /
+            statusCode:             200

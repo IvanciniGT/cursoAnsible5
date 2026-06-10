@@ -1,11 +1,17 @@
 apache:
-    version:
-    yum: 
+    version:                    2.4.68
+    version_matching:           minor        # instala la serie 2.4.* -> "apache2=2.4*"
+    redhat:
         paquete:                httpd
-        repo:
-    apt: 
+        repo:                                # httpd viene en los repos base de RHEL/Rocky -> sin repo extra
+    ubuntu:
         paquete:                apache2
-        repo:
+        repo:                                # PPA ondrej/apache2 en formato deb822
+            nombre:             ondrej-apache2
+            uris:               https://ppa.launchpadcontent.net/ondrej/apache2/ubuntu
+            suites:             "{{ ansible_distribution_release }}"
+            components:         main
+            clave:              https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xB8DC7E53946656EFBCE4C1DD71DAEAAB4AD4CAB6
 aplicacion:
     deploy:
         puerto:                 80

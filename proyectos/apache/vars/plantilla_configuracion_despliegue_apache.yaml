@@ -1,21 +1,53 @@
-# Este es el archivoque debesrellenarparahacertusuper despliegue!
-configuracion_despliegue_apache: 
-    apache:                 
-        version:    # Aqui pones la version del apache que quieres instalar
-        yum: 
-            paquete:   httpd
-            repo:
-        apt: 
-            paquete:   apache2
-            repo:
+# ============================================================================
+#  Plantilla de configuración del despliegue de Apache
+#  Copia este archivo, renómbralo y rellénalo para hacer tu super despliegue.
+#  Todo lo que dejes vacío tomará el valor por defecto del playbook.
+# ============================================================================
+configuracion_despliegue_apache:
+
+    # ----------------------------------------------------------------------
+    #  APACHE: qué paquete instalar y de dónde.
+    # ----------------------------------------------------------------------
+    apache:
+        # Versión a instalar. Déjala vacía para coger la última disponible (latest).
+        version:                        # p.ej. 2.4.68
+
+        # Cómo casar la versión (DEFAULT: equals):
+        #   latest  -> la más reciente del repo (ignora 'version')
+        #   equals  -> exactamente esa versión       -> apache2=2.4.68
+        #   minor   -> esa serie menor               -> apache2=2.4*
+        #   major   -> esa serie mayor               -> apache2=2*
+        version_matching:               # latest | equals | minor | major
+
+        # --- RedHat / Rocky (módulo: yum_repository / dnf) ---
+        redhat:
+            paquete:        httpd       # nombre del paquete en esta familia
+            repo:                       # déjalo VACÍO si el paquete está en los repos base
+                # nombre:   mi-repo     # nombre del .repo en /etc/yum.repos.d
+                # url:      https://...  # baseurl del repositorio
+                # clave:    https://.../RPM-GPG-KEY  # URL de la clave GPG (gpgkey)
+
+        # --- Ubuntu / Debian (módulo: deb822_repository / apt) ---
+        ubuntu:
+            paquete:        apache2     # nombre del paquete en esta familia
+            repo:                       # déjalo VACÍO si el paquete está en los repos base
+                # nombre:       mi-repo                       # nombre del archivo .sources
+                # uris:         https://...                   # base del repositorio Debian
+                # suites:       "{{ ansible_distribution_release }}"  # p.ej. noble, jammy
+                # components:   main                          # main, stable, contrib...
+                # clave:        https://.../gpg               # URL/ruta de la clave (signed_by)
+
+    # ----------------------------------------------------------------------
+    #  APLICACIÓN: qué desplegar y cómo exponerlo.
+    # ----------------------------------------------------------------------
     aplicacion:
         repo:
-            url:
-            tag:
+            url:                        # URL del repositorio de tu aplicación
+            tag:                        # tag/rama/commit a desplegar
         deploy:
-            puerto: 80
-            fqdn:
-            path:   /var/apache/aplicacion
+            puerto:     80              # puerto donde escucha el VirtualHost
+            fqdn:                       # ServerName (p.ej. www.midominio.com); '*' = cualquiera
+            path:       /var/apache/aplicacion   # ruta de despliegue en el servidor
         test:
-            endpoint:   /
-            statusCode: 200
+            endpoint:   /               # ruta a comprobar tras el despliegue
+            statusCode: 200             # código HTTP esperado en esa ruta

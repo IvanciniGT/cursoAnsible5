@@ -1,17 +1,4 @@
-- name:                           Normalizar definición de paquete {{ paquete.nombre }}
-  ansible.builtin.set_fact: # Crea variables en tiempo de ejecución a nivel de HOST
-    paquete_efectivo:
-                                  nombre: "{{ (paquete.yum | default({})).package | default(paquete.nombre) }}"
-                                  version: "{{ paquete.version | default('') }}"
-                                  version_matching: >-
-                                    {% if paquete.version is not defined or not paquete.version %}
-                                    latest
-                                    {% else %}
-                                    {{ paquete.version_matching | default('equals') }}
-                                    {% endif %}
-                                  repo: "{{ (paquete.yum | default({})).repo | default({}) }}"
-
-- name:                           Asegurar que el repositorio DNF queda registrado si se ha indicado para {{ paquete_efectivo.name }}
+- name:                           Asegurar que el repositorio DNF queda registrado si se ha indicado para {{ paquete_efectivo.nombre }}
   ansible.builtin.yum_repository:
     name:                         "{{ paquete_efectivo.repo.nombre }}"
     baseurl:                      "{{ paquete_efectivo.repo.url }}"
@@ -22,22 +9,9 @@
   become: true # Esta es ansible (Ponerme como administrador... usuario privilegiado)
   when: paquete_efectivo.repo | length > 0  # Miramos si hay datos dentro del repo
 
-- name:                           Calcular paquete DNF para {{ paquete_efectivo.name }}
-  ansible.builtin.set_fact:
-    paquete_dnf: >-
-                                  {% if paquete_efectivo.version_matching | trim == 'latest' %}
-                                  {{ paquete_efectivo.nombre }}
-                                  {% elif paquete_efectivo.version_matching | trim == 'equals' %}
-                                  {{ paquete_efectivo.nombre }}-{{ paquete_efectivo.version }}
-                                  {% elif paquete_efectivo.version_matching | trim == 'minor' %}
-                                  {{ paquete_efectivo.nombre }}-{{ paquete_efectivo.version.split('.')[0] }}.{{ paquete_efectivo.version.split('.')[1] }}*
-                                  {% elif paquete_efectivo.version_matching | trim == 'major' %}
-                                  {{ paquete_efectivo.nombre }}-{{ paquete_efectivo.version.split('.')[0] }}*
-                                  {% endif %}
-
-- name:                           Asegurar que el paquete queda instalado el paquete {{ paquete_dnf | trim }}
+- name:                           Asegurar que queda instalado el paquete {{ paquete_efectivo.nombre }}
   ansible.builtin.dnf:
-    name:                         "{{ paquete_dnf | trim }}"
+    name:                         "{{ paquete_efectivo.nombre }}{{ ('-' + version_final | trim) if version_final | trim else '' }}"
     state:                        present
     update_cache:                 true
     # allow_downgrade: true   A revisar.

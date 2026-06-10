@@ -5,17 +5,16 @@ distros_soportadas:
 
 paquetes:
   - nombre:                 git
-    version:                2.40.0 #latest
+    version:                2.54.0 # ultima estable (abril 2026)
     version_matching:       major  #minor, major, equals. DEFAULT: EQUALS
-    yum:
-      repo:
-        nombre:             repo-git
-        url:
-        clave:
-    apt: 
-      repo:
-        nombre:             repo-git
-        url:
-        clave:
+    redhat:
+      repo:                        # git viene en los repos base/AppStream de RHEL/Rocky -> sin repo extra
+    ubuntu:
+      repo:                        # PPA oficial git-core (Ubuntu Git Maintainers) en formato deb822
+        nombre:             git-core
+        uris:               https://ppa.launchpadcontent.net/git-core/ppa/ubuntu
+        suites:             "{{ ansible_distribution_release }}"
+        components:         main
+        clave:              https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xE1DD270288B4E6030699E45FA1715D88E1DF1F24
   - nombre:                 curl
-    version_matching:       latest  #minor, major, equals. DEFAULT: EQUALS
+    version_matching:       latest  # de los repos oficiales de la distro, sin repo extra

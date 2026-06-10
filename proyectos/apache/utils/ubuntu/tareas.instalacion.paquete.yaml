@@ -1,4 +1,19 @@
+- name:                           Asegurar que el repositorio APT (deb822) queda registrado si se ha indicado para {{ paquete_efectivo.nombre }}
+  ansible.builtin.deb822_repository: # Sustituye a apt_key + apt_repository (ambos deprecados); 'signed_by' gestiona la clave GPG
+    name:                         "{{ paquete_efectivo.repo.nombre }}"
+    uris:                         "{{ paquete_efectivo.repo.uris | default(paquete_efectivo.repo.url) | default('') }}"
+    suites:                       "{{ paquete_efectivo.repo.suites | default(ansible_distribution_release) }}"
+    components:                   "{{ paquete_efectivo.repo.components | default('main') }}"
+    signed_by:                    "{{ paquete_efectivo.repo.clave | default(omit, true) }}"
+    enabled:                      true
+    state:                        present
+  become: true # Esta es ansible (Ponerme como administrador... usuario privilegiado)
+  when: (paquete_efectivo.repo.uris | default(paquete_efectivo.repo.url) | default('')) | length > 0  # Solo si hay URI de repo
 
-yum_repository
-
-dnf
+- name:                           Asegurar que queda instalado el paquete {{ paquete_efectivo.nombre }}
+  ansible.builtin.apt:
+    name:                         "{{ paquete_efectivo.nombre }}{{ ('=' + version_final | trim) if version_final | trim else '' }}"
+    state:                        present
+    update_cache:                 true
+    # allow_downgrade: true   A revisar.
+  become: true

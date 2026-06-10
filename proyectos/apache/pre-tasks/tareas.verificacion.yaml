@@ -8,7 +8,7 @@
                           Este playbook NO es compatible con el sistema operativo destino.
                           {% endif %}
 
-- name:                   Asegurar compatibilidad del playbook con el Sistema Operativo destino
+- name:                   Cortar la ejecución del playbook si el Sistema Operativo destino no está soportado
   ansible.builtin.meta:   end-host
   when:                   ansible_distribution not in requisitos_despliegue_apache.distros_soportadas
   
@@ -16,8 +16,6 @@
 
 - name:                   Verificar que la URL del repo de git se ha suministrado y es accesible
   ansible.builtin.uri:
-    url: {{ configuracion_despliegue_apache.repo.url }}
-    method: GET
-    status_code: 200
-
-
+    url:                  "{{ configuracion_despliegue_apache.repo.url }}"
+    method:               GET
+    status_code:          200

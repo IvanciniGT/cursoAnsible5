@@ -1,19 +1,19 @@
-- name:               Cargar variables internas necesarias para la ejecución del playbook
+- name:                           Cargar variables internas necesarias para la ejecución del playbook
   ansible.builtin.include_vars:
-    file: internal_vars/constantes.playbook.yaml
-    name: requisitos_despliegue_apache
+    file:                         internal_vars/constantes.playbook.yaml
+    name:                         requisitos_despliegue_apache
 
-- name:               Cargar valores por defecto del playbook
+- name:                           Cargar valores por defecto del playbook
   ansible.builtin.include_vars:
-    file: internal_vars/despliegue.apache.defaults.yaml
-    name: despliegue_apache_defaults
+    file:                         internal_vars/despliegue.apache.defaults.yaml
+    name:                         despliegue_apache_defaults
 
-- name:               Obtener el Sistema Operativo destino
+- name:                           Obtener el Sistema Operativo destino
   ansible.builtin.setup:
     gather_subset:
-      - '!all'
-      - '!min'
-      - distribution
+                                - '!all'
+                                - '!min'
+                                - distribution
     # Esto me da una variable llamada: ansible_distribution, que contiene la distro del SO destino:
     # - Redhat
     # - Ubuntu

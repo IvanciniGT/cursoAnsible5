@@ -1,1 +1,2 @@
-    - name:               Asegurar que está instalada la paquetería necesaria para el playbook
+- name:                           Asegurar que está instalada la paquetería necesaria para el playbook
+  ansible.builtin.include_tasks:  "pre-tasks/tareas.instalacion.paqueteria.yaml"

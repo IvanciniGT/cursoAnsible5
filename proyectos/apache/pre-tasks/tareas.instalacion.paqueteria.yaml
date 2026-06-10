@@ -1,0 +1,6 @@
+
+- name:                           Asegurar que los paquetes requeridos por el playbook quedan instalados
+  ansible.builtin.import_tasks:   "utils/{{ ansible_distribution | lower }}/tareas.instacion.paquete.yaml"
+  loop:                           "{{ requisitos_despliegue_apache.paquetes }}"
+  loop_control:
+    loop_var:                     paquete # La variable que contendrá cada uno de los items de la lista en cada iteración 

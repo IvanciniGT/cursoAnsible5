@@ -1,7 +1,7 @@
 - name: Despliegue de Web en Apache
   hosts: all
   #vars:
-
+  #become: true NO LO HACEMOS! Lo pongo siempre a nivel de tarea. Esto es por vaguería
   gather_facts: false
 
   pre_tasks:

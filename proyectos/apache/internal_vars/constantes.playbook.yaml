@@ -4,19 +4,18 @@ distros_soportadas:
   - Redhat
 
 paquetes:
-  - nombre:         git
-    version:      
+  - nombre:                 git
+    version:                2.40.0 #latest
+    version_matching:       major  #minor, major, equals. DEFAULT: EQUALS
     yum:
       repo:
-      paquete:
+        nombre:             repo-git
+        url:
+        clave:
     apt: 
       repo:
-      paquete:
-  - nombre:         curl
-    version:      
-    yum:
-      repo:
-      paquete:
-    apt: 
-      repo:
-      paquete:
+        nombre:             repo-git
+        url:
+        clave:
+  - nombre:                 curl
+    version_matching:       latest  #minor, major, equals. DEFAULT: EQUALS

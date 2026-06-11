@@ -1,5 +1,11 @@
-- name:               Asegurar que el servicio de apache queda reiniciado
+- name:                           Asegurar que el servicio de apache queda reiniciado
+  ansible.builtin.systemd_service:
+    name:                         "{{ paquete_efectivo.servicio }}"
+    state:                        restarted
+  become:                         true
   listen:             
                     - CAMBIO_EN_APACHE
                     - CAMBIO_EN_APLICACION
                     - CAMBIO_EN_CONFIGURACION_APACHE
+                    - APACHE_DETENIDO
+                    

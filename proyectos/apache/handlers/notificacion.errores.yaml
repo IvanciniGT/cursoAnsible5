@@ -1,4 +1,6 @@
 - name:               Notificar problema
+  ansible.builtin.debug:
+    msg:              Hacer lo que sea necesario
   listen:             
                     - ERROR_EN_DESPIEGUE
                     - ERROR_EN_LAS_PRUEBAS

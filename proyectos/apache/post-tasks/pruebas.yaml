@@ -1,3 +1,30 @@
-- name:             Comprobar que el puerto esté abierto
-- name:             Comprobar que la URL responda desde la máquina
-- name:             Comprobar que la URL responda desde fuera (por ejemplo desde donde estoy ejecutando el playbook)
+- name:                           Comprobar que Apache está escuchando en el puerto
+  ansible.builtin.wait_for:
+    host:                         "127.0.0.1"
+    port:                         "{{ http_port }}"
+    state:                        started
+    timeout:                      30
+
+- name:                          Comprobar que Apache está escuchando en el puerto por ip externa
+  ansible.builtin.wait_for:
+    host:                        "{{ ansible_host }}" # Esa variable nos da la IP o fqdn de la máquina
+                                                             # Según inventario
+    port:                        "{{ http_port }}"
+    state:                       started
+    timeout:                     30
+
+- name:                          Comprobar que la URL responda desde la máquina
+  ansible.builtin.command:
+    cmd:                        "curl -s -o /dev/null -w '{{ http_status_code }}' http://127.0.0.1:{{ http_port }}{{ http_endpoint }}"
+  #changed_when:                 false # Por defecto los modulos de ansible command y shell siempre marcan la tarea como "CHANGED"... en este caso no tiene sentido
+
+- name:                         Comprobar que la URL responda desde fuera (por ejemplo desde donde estoy ejecutando el playbook)
+  ansible.builtin.uri:
+    url:                         "http://{{ http_host_header }}:{{ http_port }}{{ http_endpoint }}"
+    status_code:                 "{{ http_status_code }}"
+    timeout:                     10
+    return_content:              no
+
+  delegate_to:                  localhost # Lo ejecuto en la máquina desde donde lanzo el playbook
+
+

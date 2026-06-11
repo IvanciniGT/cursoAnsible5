@@ -63,3 +63,41 @@ El flujo normal:
 
         Ahora no vamos a configurar eso.. estamos con el playbook... 
         Pero es bueno que anotemos que necesitamos esta colección especial... para luego darla de alta en nuestra imagen de contenedor... cuando la creemos.
+
+
+# Refactorización
+
+    Desarrollo <> Pruebas -> OK -> Refactorización <> Pruebas -> OK -> PRODUCTO LISTO!
+
+
+---
+
+# Inventarios
+
+Una cosa es el programa (playbook) que ejecuto y otra donde lo ejecuto.
+Cuando solicitamos la ejecución de un playbook debemos suministrar un inventario.
+El inventario per se no es donde se va a ejecutar el playbook... 
+El inventario es el conjunto de los potenciales sitios donde podrían ejecutarse los playbooks de mi empresa.
+
+Cuando ejecutamos damos: 
+- Inventario
+- Playbook (que puede establecer un primer filtro sobre el inventario) MARCA HOSTS
+- Hay variables de entorno o argumentos de linea de comandos que me permiten hacer más filtros.
+
+El inventario se gestiona en paralelo (de forma independiente) a los playbooks
+A nivel del Automation Platform, son entradas diferentes en el menú...
+
+Cómo definimos inventarios. Hay varias formas. Solo 1 buena.
+- Ficheros ini (RUINA)
+- Ficheros YAML (IGUAL O PEOR)
+- Directorios = GUAY!!!!
+- A manita dentro de las pantallas del Automation Platform => NI DE BROMA! INMANTENIBLE y además? SIN CONTROL DE VERSION!
+
+En los cursos y tutoriales de youtube se usan mucho los ini... bien... para una prueba de concepto bien. PRODUCCION = RUINA!
+
+Además... hay otra cosita... Esos ficheros/Directorios muchas veces no los generamos nosotros a manita.
+Nos interesa tener un programa que genere eso (ficheros ini, yaml, directorios)... 
+Puede ser un programa python, script de la shell, programa JAVA.
+De dónde sacan los datos: CMDB, Cloud...
+
+Ansible me permite que como inventario le pase no un fichero (ini o yaml) o un directorio, sino un programa que genere una de esas estructura... y ya el se encgarga de ejecutar el programa  = SUPERGUAY!

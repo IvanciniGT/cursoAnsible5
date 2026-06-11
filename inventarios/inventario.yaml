@@ -1,0 +1,68 @@
+all:        # Grupo (palabra especial)
+    hosts:  # Palabras especiales
+        mipc:
+            ansible_connection: local
+            ansible_host:       localhost
+            nginx:
+                version: 1.14.0
+    children: # Palabras especiales
+        webservers:
+            children:
+                apache:
+                    hosts: # Palabras especiales
+                        apache.desa:
+                            ansible_host: apache.desa.miempresa.net
+                        apache.test:
+                            ansible_host: apache.test.miempresa.net
+                        apache.prod:
+                            ansible_host: apache.prod.miempresa.net
+
+                            configuracion_despliegue_apache:
+                              apache:
+                                  version:                        # p.ej. 2.4.68
+                                  version_matching:               # latest | equals | minor | major
+                                  redhat:
+                                      paquete:        httpd       # nombre del paquete en esta familia
+                                      repo:                       # déjalo VACÍO si el paquete está en los repos base
+                                          # nombre:   mi-repo     # nombre del .repo en /etc/yum.repos.d
+                                          # url:      https://...  # baseurl del repositorio
+                                          # clave:    https://.../RPM-GPG-KEY  # URL de la clave GPG (gpgkey)
+                                  ubuntu:
+                                      paquete:        apache2     # nombre del paquete en esta familia
+                                      repo:                       # déjalo VACÍO si el paquete está en los repos base
+                                          # nombre:       mi-repo                       # nombre del archivo .sources
+                                          # uris:         https://...                   # base del repositorio Debian
+                                          # suites:       "{{ ansible_distribution_release }}"  # p.ej. noble, jammy
+                                          # components:   main                          # main, stable, contrib...
+                                          # clave:        https://.../gpg               # URL/ruta de la clave (signed_by)
+                              aplicacion:
+                                  repo:
+                                      url:                        # URL del repositorio de tu aplicación
+                                      tag:        HEAD                # tag/rama/commit a desplegar
+                                  deploy:
+                                      puerto:     80              # puerto donde escucha el VirtualHost
+                                      fqdn:                       # ServerName (p.ej. www.midominio.com); '*' = cualquiera
+                                      path:       /var/apache/aplicacion   # ruta de despliegue en el servidor
+                                  test:
+                                      endpoint:   /               # ruta a comprobar tras el despliegue
+                                      statusCode: 200             # código HTTP esperado en esa ruta
+
+
+                    vars: # Palabras especiales
+                        ansible_connection: ssh
+                nginx:
+                    hosts:
+                        "nginx[01:20]":
+                            ansible_connection: ssh
+            vars: # Palabras especiales 
+                puerto: 80
+                ansible_ssh_private_key_file: /RUTA/DE/MI/CLAVE
+
+# No estan mal...
+# Pero... tiene cosillas...
+# Con 700 servidores... cuantas lineas tendrá esto? BUFFFF
+# Como tenga que mirarlo... Me pierdo con el sangrado 
+# Engorda mucho... Mucha palabra especial: children: all: hosts: vars:
+# Mucho tabulador...
+
+# Lo que más me gusta comparado con los ini... Su gran ventaja: Las variables.. que no van aplanadas en json en una linea...

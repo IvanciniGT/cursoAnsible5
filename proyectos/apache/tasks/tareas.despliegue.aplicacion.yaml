@@ -1,10 +1,58 @@
+- name:               Asegurar que existe el directorio de instalación
+  ansible.builtin.file:
+    path:             configuracion_despliegue_apache.aplicacion.deploy.path
+    state:            directory
 
-- name:               Asegurar que tengo la última version del repo en local en un directorio temporal 
-- name:               Comprobar si hay cambios frente a lo actualmente desplegado -> true | false
-- name:               Asegurar que la versión de la aplicación descargada queda desplegada solo si hay cambios en la app desplegada
+- name:               Asegurar que tengo la ultima version del repo en local en un directorio temporal
+  ansible.builtin.git:
+    repo:             "{{ configuracion_despliegue_apache.aplicacion.repo.url }}"
+    version:          "{{ configuracion_despliegue_apache.aplicacion.repo.tag | default('HEAD') }}"
+    dest:             "{{ requisitos_despliegue_apache.directorio_temporal_clonado_aplicacion }}"
+    force:            true
+  register:           cambios_en_aplicacion_identificados_por_git
+
+- name:               Comprobar si hay cambios frente a lo actualmente desplegado
+  ansible.builtin.command:
+    cmd: >-
+      diff -rq --exclude=".git"
+      {{ requisitos_despliegue_apache.directorio_temporal_clonado_aplicacion }}
+      {{ configuracion_despliegue_apache.aplicacion.deploy.path }}/
+  register:           cambios_en_aplicacion_identificados_por_diff
+  changed_when:       cambios_en_aplicacion_identificados_por_diff.rc != 0
+  failed_when:        false
+
+- name:                               Asegurar que la versión de la aplicación descargada queda desplegada solo si hay cambios en la app desplegada
   block: 
-    - name:             Asegurar que existe el directorio de instalación
-    - name:             Asegurar que el servicio está parado antes de la copia de seguridad
-    - name:             Copia de seguridad del directorio de la aplicacion
+    - name:                           Asegurar que el servicio está parado antes de la copia de seguridad
+      ansible.builtin.systemd_service:
+        name:                         "{{ paquete_efectivo.servicio }}"
+        state:                        stopped
+      become:                         true
+      notify:                         APACHE_DETENIDO
+
+    - name:                             Obtener timestamp para la copia de seguridad
+      ansible.builtin.command:          date +%Y%m%d%H%M%S
+      register:                         backup_ts
+      changed_when:                     false
+          
+    - name:           Copia de seguridad del directorio de la aplicacion
+      ansible.builtin.archive:
+        format:       zip
+        path:         "{{ configuracion_despliegue_apache.aplicacion.deploy.path }}/"
+        dest:         "{{ requisitos_despliegue_apache.directorio_backups_aplicacion }}/backup_{{ backup_ts.stdout | trim }}.zip"
+
     - name:             Copiar lo que tengo en el temporal al path destino
+      ansible.builtin.copy:
+        src:          "{{ requisitos_despliegue_apache.directorio_temporal_clonado_aplicacion }}/"
+        dest:         "{{ configuracion_despliegue_apache.aplicacion.deploy.path }}"
+        remote_src: yes
       notify:           CAMBIO_EN_APLICACION
+
+    - name:             Borrar la carpeta .git
+      ansible.builtin.file:
+        path:           "{{ configuracion_despliegue_apache.aplicacion.deploy.path }}/.git"
+        state:          absent
+      notify:           CAMBIO_EN_APLICACION
+  
+  when: cambios_en_aplicacion_identificados_por_git.changed or cambios_en_aplicacion_identificados_por_diff.changed
+

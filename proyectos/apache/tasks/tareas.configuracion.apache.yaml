@@ -1,2 +1,7 @@
 - name:               Asegurar que el fichero de apache queda configurado con los detalles de la aplicación
+  ansible.builtin.template:
+  src:                templates/virtual_host.j2
+  dest:               "{{ requisitos_despliegue_apache.paquetes[ ansible_distribution | lower ].directorio_configuracion_aplicacion }}/app.conf"
+  mode:               '0644'
+  become:             true
   notify:             CAMBIO_EN_CONFIGURACION_APACHE

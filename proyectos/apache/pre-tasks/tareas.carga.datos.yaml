@@ -18,3 +18,9 @@
     # - Redhat
     # - Ubuntu
 
+- name:                          Variables que reusamos a nivel del playbook
+  ansible.builtin.set_fact:
+      http_port:                "{{ configuracion_despliegue_apache.aplicacion.deploy.puerto | default(despliegue_apache_defaults.aplicacion.deploy.puerto) }}"
+      http_endpoint:            "{{ configuracion_despliegue_apache.aplicacion.test.endpoint | default(despliegue_apache_defaults.aplicacion.test.endpoint) }}"
+      http_status_code:         "{{ configuracion_despliegue_apache.aplicacion.test.statusCode | default(despliegue_apache_defaults.aplicacion.test.statusCode) }}"
+      http_host_header:         "{{ configuracion_despliegue_apache.aplicacion.deploy.fqdn | default(despliegue_apache_defaults.aplicacion.deploy.fqdn) | default('localhost') | replace('*', 'localhost') }}"

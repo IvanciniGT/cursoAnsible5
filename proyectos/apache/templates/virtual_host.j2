@@ -1,0 +1,10 @@
+<VirtualHost *:{{ http_port }}>
+  ServerName {{ http_host_header | default('*') }}
+  DocumentRoot {{ configuracion_despliegue_apache.aplicacion.deploy.path }}
+  <Directory {{ configuracion_despliegue_apache.aplicacion.deploy.path }}>
+    AllowOverride All
+    Require all granted
+  </Directory>
+  ErrorLog {{ '/var/log/httpd/error_log'  if ansible_os_family == 'RedHat' else '${APACHE_LOG_DIR}/error.log' }}
+  CustomLog {{ '/var/log/httpd/access_log' if ansible_os_family == 'RedHat' else '${APACHE_LOG_DIR}/access.log' }} combined
+</VirtualHost>

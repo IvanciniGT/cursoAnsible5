@@ -1,23 +1,24 @@
+---
+- name:                           Normalizar datos de Apache
+  ansible.builtin.set_fact:
+    paquete:                      "{{ configuracion_despliegue_apache.apache }}"
 
-- name:               Obtener la versión de Apache actualmente instalada
-- name:               Asegurar que el servicio está parado si voy a instalar versión nueva
-
-
-- name:                           Asegurar que el Apache queda instalado en la versión que me interesa 
-  ansible.builtin.include_tasks:  "utils/{{ ansible_distribution | lower }}/tareas.instalacion.paquete.yaml"
-  notify:                         CAMBIO_EN_APACHE
-  vars:
-    paquete:                      "{{configuracion_despliegue_apache.apache}}"
+- name:                           Calcular datos efectivos de Apache
+  ansible.builtin.set_fact:
     paquete_efectivo:
-                                  nombre: "{{ (paquete[ansible_distribution | lower] | default({})).paquete | default(paquete.nombre) }}"
-                                  version: "{{ paquete.version | default('') }}"
-                                  version_matching: >-
-                                    {% if paquete.version is not defined or not paquete.version %}
-                                    latest
-                                    {% else %}
-                                    {{ paquete.version_matching | default('equals') }}
-                                    {% endif %}
-                                  repo: "{{ (paquete[ansible_distribution | lower] | default({})).repo | default({}) }}"
+      nombre:                     "{{ (paquete[ansible_distribution | lower] | default({})).paquete | default(paquete.nombre) }}"
+      servicio:                   "{{ (paquete[ansible_distribution | lower] | default({})).servicio | default(paquete.servicio | default(paquete.nombre)) }}"
+      version:                    "{{ paquete.version | default('') }}"
+      version_matching: >-
+                                  {% if paquete.version is not defined or not paquete.version %}
+                                  latest
+                                  {% else %}
+                                  {{ paquete.version_matching | default('equals') }}
+                                  {% endif %}
+      repo:                       "{{ (paquete[ansible_distribution | lower] | default({})).repo | default({}, true) }}"
+
+- name:                           Calcular versión final solicitada
+  ansible.builtin.set_fact:
     version_final: >-
                                   {% if paquete_efectivo.version_matching | trim == 'equals' %}
                                   {{ paquete_efectivo.version }}
@@ -26,3 +27,56 @@
                                   {% elif paquete_efectivo.version_matching | trim == 'major' %}
                                   {{ paquete_efectivo.version.split('.')[0] }}*
                                   {% endif %}
+
+- name:                           Recoger información de paquetes instalados
+  ansible.builtin.package_facts:
+    manager:                      auto
+
+- name:                           Obtener la versión de Apache actualmente instalada
+  ansible.builtin.set_fact:
+    apache_version_instalada: >-
+                                  {{
+                                    ansible_facts.packages[paquete_efectivo.nombre][0].version
+                                    if paquete_efectivo.nombre in ansible_facts.packages
+                                    else ''
+                                  }}
+
+- name:                           Obtener la versión candidata de Apache
+  ansible.builtin.include_tasks:
+    file:                         "tasks/{{ ansible_distribution | lower }}/tareas.version.candidata.paquete.yaml"
+    apply:
+      tags:
+        - instalacion-apache
+  tags:
+    - instalacion-apache
+
+- name:                           Determinar si Apache requiere cambio de versión
+  ansible.builtin.set_fact:
+    apache_requiere_cambio_version: "{{ apache_version_instalada | trim != apache_version_candidata | trim }}"
+
+- name:                           Mostrar decisión sobre Apache
+  ansible.builtin.debug:
+    msg:
+      - "Paquete: {{ paquete_efectivo.nombre }}"
+      - "Versión solicitada: {{ version_final | trim | default('latest', true) }}"
+      - "Apache instalado: {{ apache_version_instalada | trim | default('no instalado', true) }}"
+      - "Apache candidato: {{ apache_version_candidata | trim }}"
+      - "Requiere cambio: {{ apache_requiere_cambio_version }}"
+
+- name:                           Asegurar que el servicio está parado si voy a instalar versión nueva
+  ansible.builtin.systemd_service:
+    name:                         "{{ paquete_efectivo.servicio }}"
+    state:                        stopped
+  become:                         true
+  when:                           apache_requiere_cambio_version
+  notify:                         APACHE_DETENIDO
+
+- name:                           Asegurar que Apache queda instalado en la versión que me interesa
+  ansible.builtin.include_tasks:
+    file:                         "utils/{{ ansible_distribution | lower }}/tareas.instalacion.paquete.yaml"
+    apply:
+      tags:
+        - instalacion-apache
+  tags:
+    - instalacion-apache
+  notify:                         CAMBIO_EN_APACHE

@@ -1,0 +1,36 @@
+---
+- name:                           Obtener versión candidata latest con APT
+  ansible.builtin.shell: |
+                                  set -o pipefail
+                                  apt-cache policy "{{ paquete_efectivo.nombre }}" \
+                                  | awk '/Candidate:/ {print $2}'
+  args:
+    executable:                   /bin/bash
+  register:                       version_candidata_latest_cmd
+  changed_when:                   false
+  failed_when:                    version_candidata_latest_cmd.rc != 0 or version_candidata_latest_cmd.stdout | trim | length == 0
+  when:                           version_final | trim | length == 0
+
+- name:                           Obtener versión candidata versionada con APT
+  ansible.builtin.shell: |
+                                  set -o pipefail
+                                  apt-cache madison "{{ paquete_efectivo.nombre }}" \
+                                  | awk '{print $3}' \
+                                  | grep -E '^{{ version_final | trim | replace("*", ".*") }}' \
+                                  | sort -V \
+                                  | tail -n 1
+  args:
+    executable:                   /bin/bash
+  register:                       version_candidata_versionada_cmd
+  changed_when:                   false
+  failed_when:                    version_candidata_versionada_cmd.rc != 0 or version_candidata_versionada_cmd.stdout | trim | length == 0
+  when:                           version_final | trim | length > 0
+
+- name:                           Guardar versión candidata
+  ansible.builtin.set_fact:
+    apache_version_candidata: >-
+                                  {{
+                                    version_candidata_versionada_cmd.stdout | trim
+                                    if version_final | trim | length > 0
+                                    else version_candidata_latest_cmd.stdout | trim
+                                  }}

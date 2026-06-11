@@ -47,11 +47,14 @@
               - configuracion-firewall
       rescue:
         - name:             Notificar error en despliegue
+          ansible.builtin.debug:
+            msg:            Ha ocurrido un error al ejecutar el playbook
           changed_when:     true
           notify:           ERROR_EN_DESPIEGUE
 
   post_tasks:
-    - block:
+    - name:                Ejecución de las pruebas
+      block:
         - name:                           Pruebas del servidor web y la app
           ansible.builtin.import_tasks:   post-tasks/pruebas.yaml
           tags:
@@ -59,6 +62,8 @@
               - always
       rescue:
         - name:             Notificar error en despliegue
+          ansible.builtin.debug:
+            msg:            Ha ocurrido un error al ejecutar el playbook
           changed_when:     true
           notify:           ERROR_EN_DESPIEGUE
 
@@ -68,3 +73,4 @@
 
     - name:                           Notificar problema
       ansible.builtin.import_tasks:   handlers/notificacion.errores.yaml
+

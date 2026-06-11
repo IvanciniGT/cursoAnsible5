@@ -1,0 +1,14 @@
+---
+- name:                           Obtener versión candidata con DNF
+  ansible.builtin.command: >
+                                  dnf repoquery
+                                  --qf '%{VERSION}'
+                                  --latest-limit=1
+                                  "{{ paquete_efectivo.nombre }}{{ ('-' + version_final | trim) if version_final | trim else '' }}"
+  register:                       version_candidata_cmd
+  changed_when:                   false
+  failed_when:                    version_candidata_cmd.rc != 0 or version_candidata_cmd.stdout | trim | length == 0
+
+- name:                           Guardar versión candidata
+  ansible.builtin.set_fact:
+    apache_version_candidata:     "{{ version_candidata_cmd.stdout | trim }}"

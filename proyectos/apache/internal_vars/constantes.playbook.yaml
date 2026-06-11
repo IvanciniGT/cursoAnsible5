@@ -8,8 +8,10 @@ paquetes:
     version:                2.54.0 # ultima estable (abril 2026)
     version_matching:       major  #minor, major, equals. DEFAULT: EQUALS
     redhat:
+      directorio_configuracion_aplicacion: 
       repo:                        # git viene en los repos base/AppStream de RHEL/Rocky -> sin repo extra
     ubuntu:
+      directorio_configuracion_aplicacion: 
       repo:                        # PPA oficial git-core (Ubuntu Git Maintainers) en formato deb822
         nombre:             git-core
         uris:               https://ppa.launchpadcontent.net/git-core/ppa/ubuntu
@@ -18,3 +20,6 @@ paquetes:
         clave:              https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xE1DD270288B4E6030699E45FA1715D88E1DF1F24
   - nombre:                 curl
     version_matching:       latest  # de los repos oficiales de la distro, sin repo extra
+
+directorio_temporal_clonado_aplicacion: ~/ansible_app_deploy
+directorio_backups_aplicacion: ~/ansible_app_backups

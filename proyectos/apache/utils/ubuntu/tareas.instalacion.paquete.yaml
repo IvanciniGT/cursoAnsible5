@@ -15,5 +15,5 @@
     name:                         "{{ paquete_efectivo.nombre }}{{ ('=' + version_final | trim) if version_final | trim else '' }}"
     state:                        present
     update_cache:                 true
-    # allow_downgrade: true   A revisar.
+    # allow_downgrade:            true   A revisar.
   become: true

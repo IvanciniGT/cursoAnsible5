@@ -22,7 +22,11 @@
     - name:               Despliegue del apache/aplicación
       block:
         - name:                          Instalación apache
-          ansible.builtin.include_tasks: "tasks/tareas.instalacion.apache.yaml"
+          ansible.builtin.include_tasks: 
+            file:                        "tasks/tareas.instalacion.apache.yaml"
+            apply:
+              tags: 
+                  - instalacion-apache
           tags: 
               - instalacion-apache
         - name:                          Despliegue aplicación
@@ -34,7 +38,11 @@
           tags: 
               - configuracion-apache
         - name:                          Configurar conectividad de la aplicación
-          ansible.builtin.import_tasks:  tasks/tareas.configuracion.firewall.yaml
+          ansible.builtin.include_tasks: 
+            file:                        "tasks/{{ ansible_distribution | lower }}/tareas.configuracion.firewall.yaml"
+            apply:
+              tags:
+                - configuracion-firewall
           tags: 
               - configuracion-firewall
       rescue:

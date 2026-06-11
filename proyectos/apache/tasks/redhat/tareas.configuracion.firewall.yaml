@@ -1,0 +1,5 @@
+- name:               Asegurar que los puertos usados por la app quedan abiertos en el firewall
+  ansible.posix.firewalld:
+    port:             "{{ configuracion_despliegue_apache.aplicacion.deploy.puerto | default(despliegue_apache_defaults.aplicacion.deploy.puerto) }}/tcp"
+    permanent:        true
+    state:            enabled

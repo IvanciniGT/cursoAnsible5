@@ -4,6 +4,7 @@
     state:                        present
     update_cache:                 true
   become:                         true
+  changed_when: false
   when: (paquete_efectivo.repo.uris | default(paquete_efectivo.repo.url) | default('')) | length > 0
 
 - name:                           Asegurar que el repositorio APT (deb822) queda registrado si se ha indicado para {{ paquete_efectivo.nombre }}

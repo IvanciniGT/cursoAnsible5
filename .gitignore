@@ -1,0 +1,26 @@
+# === Ansible / Execution Environment (artefactos generados, NO versionar) ===
+# Artefactos y log de ansible-navigator
+proyectos/apache/artifacts/
+proyectos/apache/ansible-navigator.log
+*.log
+
+# Contexto de build de ansible-builder (se regenera con 'ansible-builder build')
+proyectos/apache/context/
+
+# Colecciones instaladas en local por ansible-galaxy
+collections/
+ansible_collections/
+
+# === Vagrant / VirtualBox ===
+# Estado de las VMs (claves del provisioner, ids de máquina, etc.)
+vagrant/.vagrant/
+*.box
+
+# === Sistema operativo / editores ===
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+
+# NOTA: proyectos/inventario/id_curso (clave privada) SÍ se versiona a propósito:
+# es un entorno de curso de pruebas (lo acordamos).

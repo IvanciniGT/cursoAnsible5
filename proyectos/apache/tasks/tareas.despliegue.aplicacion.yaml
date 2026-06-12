@@ -28,6 +28,7 @@
   failed_when:        false
 
 - name:                               Asegurar que la versión de la aplicación descargada queda desplegada solo si hay cambios en la app desplegada
+  when: cambios_en_aplicacion_identificados_por_git.changed or cambios_en_aplicacion_identificados_por_diff.changed
   block: 
     - name:                           Asegurar que el servicio está parado antes de la copia de seguridad
       ansible.builtin.systemd_service:
@@ -62,5 +63,4 @@
       become:           true
       notify:           CAMBIO_EN_APLICACION
   
-  when: cambios_en_aplicacion_identificados_por_git.changed or cambios_en_aplicacion_identificados_por_diff.changed
 

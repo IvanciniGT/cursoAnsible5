@@ -40,7 +40,7 @@
         - name:                          Configurar conectividad de la aplicación
           ansible.builtin.include_tasks: 
             file:                        "tasks/{{ familia }}/tareas.configuracion.firewall.yaml"
-            apply:
+            apply: 
               tags:
                 - configuracion-firewall
           tags: 

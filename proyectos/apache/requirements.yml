@@ -1,12 +1,15 @@
 ---
 # Colecciones de Ansible Galaxy necesarias para este proyecto.
-# (las mismas que figuran en colecciones.md)
+# Versiones FIJADAS a las compatibles con ansible-core 2.16:
+#   community.general 11+ requiere ansible-core >=2.17  -> usamos 10.x
+#   ansible.posix 2.x puede requerir core nuevo         -> usamos 1.x (trae firewalld)
 #
-# Se instalan dentro del Execution Environment al construirlo con
-# ansible-builder (ver execution-environment.yml). Para una ejecución
-# SIN EE, instálalas en el controlador con:
+# Se hornean dentro del Execution Environment al construirlo con ansible-builder
+# (ver execution-environment.yml). Sin EE:
 #   ansible-galaxy collection install -r requirements.yml
 
 collections:
   - name: ansible.posix
+    version: ">=1.5.0,<2.0.0"
   - name: community.general
+    version: ">=10.0.0,<11.0.0"

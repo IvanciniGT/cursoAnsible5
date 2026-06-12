@@ -57,17 +57,16 @@ En el repo va uno de ejemplo listo para probar:
 ## ▶️ Ejecutar desde **macOS**
 
 1. Arranca **Docker Desktop**.
-2. Instala ansible-navigator (Python 3.10+):
+2. Instala ansible-navigator y ansible-builder (Python 3.10+):
    ```bash
-   python3 -m pip install --user ansible-navigator
+   python3 -m pip install --user ansible-navigator ansible-builder
    ```
-3. Construye el Execution Environment (imagen local):
+3. Construye el Execution Environment con **ansible-builder** (imagen local):
    ```bash
    cd proyectos/apache
-   docker build --provenance=false --sbom=false -t apache-ee:latest -f apache-ee.Dockerfile .
+   ansible-builder build -t apache-ee:latest -f execution-environment.yml -v3
    ```
-   > `--provenance=false` evita que Docker cree un *manifest-list* que navigator no
-   > resuelve (daría `image was not found locally`).
+   > Docker debe estar arrancado; ansible-builder detecta el motor (docker/podman).
 4. Lanza el playbook:
    ```bash
    ansible-navigator run playbook.yaml -e @configuracion.despliegue.webejemplo.yaml
@@ -82,16 +81,16 @@ Ansible **no corre de forma nativa en Windows**: se usa **WSL2** (una distro Lin
 
 1. Instala **WSL2** con Ubuntu y **Docker Desktop** con el *backend* de WSL2
    (o Podman). Abre una terminal de la distro WSL.
-2. Dentro de WSL, instala ansible-navigator:
+2. Dentro de WSL, instala ansible-navigator y ansible-builder:
    ```bash
-   pip install ansible-navigator
+   pip install ansible-navigator ansible-builder
    ```
 3. Clona el repo **dentro del filesystem de WSL** (p. ej. `~/cursoAnsible`, **no**
    en `/mnt/c/...`: en `/mnt/c` la clave SSH pierde los permisos y `ssh` la rechaza).
 4. Construye el EE y ejecuta (igual que en Mac):
    ```bash
    cd ~/cursoAnsible/proyectos/apache
-   docker build --provenance=false --sbom=false -t apache-ee:latest -f apache-ee.Dockerfile .
+   ansible-builder build -t apache-ee:latest -f execution-environment.yml -v3
    ansible-navigator run playbook.yaml -e @configuracion.despliegue.webejemplo.yaml
    ```
 
@@ -112,9 +111,9 @@ instalados, y está en la misma red que las VMs, así que es el sitio más cómo
    git clone <URL-del-repo> cursoAnsible
    cd cursoAnsible/proyectos/apache
    ```
-2. Construye el EE con **podman** (no necesita `--provenance`):
+2. Construye el EE con **ansible-builder** (usa podman automáticamente):
    ```bash
-   podman build -t apache-ee:latest -f apache-ee.Dockerfile .
+   ansible-builder build -t apache-ee:latest -f execution-environment.yml -v3
    ```
 3. Lanza el playbook (mismos comandos que en Mac/WSL; `container-engine: auto`
    elige podman automáticamente):
@@ -146,8 +145,7 @@ el playbook es idempotente.
 ```
 apache/
 ├── ansible-navigator.yml        # config de navigator (EE, volúmenes, inventario)
-├── apache-ee.Dockerfile         # Execution Environment (ansible-core 2.16 + colecciones)
-├── execution-environment.yml    # definición alternativa para ansible-builder
+├── execution-environment.yml    # definición del EE para ansible-builder (ansible-core 2.16 + colecciones)
 ├── requirements.yml             # colecciones de Galaxy (ansible.posix, community.general)
 ├── configuracion.despliegue.webejemplo.yaml   # valores de ejemplo (-e)
 ├── playbook.yaml                # punto de entrada

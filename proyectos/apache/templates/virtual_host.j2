@@ -1,5 +1,8 @@
 <VirtualHost *:{{ http_port }}>
-  ServerName {{ http_host_header | default('*') }}
+{% set _fqdn = configuracion_despliegue_apache.aplicacion.deploy.fqdn | default(despliegue_apache_defaults.aplicacion.deploy.fqdn) | default('') %}
+{% if _fqdn and _fqdn != '*' %}
+  ServerName {{ _fqdn }}
+{% endif %}
   DocumentRoot {{ configuracion_despliegue_apache.aplicacion.deploy.path }}
   <Directory {{ configuracion_despliegue_apache.aplicacion.deploy.path }}>
     AllowOverride All

@@ -1,0 +1,1380 @@
+{
+    "plays": [
+        {
+            "__play_name": "Despliegue de Web en Apache",
+            "name": "Despliegue de Web en Apache",
+            "pattern": "all",
+            "play": "Despliegue de Web en Apache",
+            "play_pattern": "all",
+            "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+            "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+            "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+            "tasks": [
+                {
+                    "__changed": false,
+                    "__duration": "0s",
+                    "__host": "rocky8",
+                    "__number": 0,
+                    "__result": "Ok",
+                    "__task": "Cargar variables internas necesarias para la ejecución del playbook",
+                    "__task_action": "ansible.builtin.include_vars",
+                    "duration": 0.04188,
+                    "end": "2026-06-12T07:11:04.318088+00:00",
+                    "event_loop": null,
+                    "host": "rocky8",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "rocky8",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "ansible_facts": {
+                            "requisitos_despliegue_apache": {
+                                "directorio_backups_aplicacion": "~/ansible_app_backups",
+                                "directorio_temporal_clonado_aplicacion": "~/ansible_app_deploy",
+                                "distros_soportadas": [
+                                    "redhat",
+                                    "ubuntu"
+                                ],
+                                "paquetes": [
+                                    {
+                                        "nombre": "git",
+                                        "redhat": {
+                                            "directorio_configuracion_aplicacion": null,
+                                            "repo": null
+                                        },
+                                        "ubuntu": {
+                                            "directorio_configuracion_aplicacion": null,
+                                            "repo": {
+                                                "clave": "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xE1DD270288B4E6030699E45FA1715D88E1DF1F24",
+                                                "components": "main",
+                                                "nombre": "git-core",
+                                                "suites": "{{ ansible_distribution_release }}",
+                                                "uris": "https://ppa.launchpadcontent.net/git-core/ppa/ubuntu"
+                                            }
+                                        },
+                                        "version": "2.54.0",
+                                        "version_matching": "major"
+                                    },
+                                    {
+                                        "nombre": "curl",
+                                        "version_matching": "latest"
+                                    }
+                                ]
+                            }
+                        },
+                        "ansible_included_var_files": [
+                            "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/internal_vars/constantes.playbook.yaml"
+                        ],
+                        "changed": false
+                    },
+                    "resolved_action": "ansible.builtin.include_vars",
+                    "start": "2026-06-12T07:11:04.276208+00:00",
+                    "task": "Cargar variables internas necesarias para la ejecución del playbook",
+                    "task_action": "ansible.builtin.include_vars",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.carga.datos.yaml:1",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-000000000011",
+                    "uuid": "2309f898-df97-4f2b-8399-ca2196cd6d72"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "0s",
+                    "__host": "ubuntu22",
+                    "__number": 1,
+                    "__result": "Ok",
+                    "__task": "Cargar variables internas necesarias para la ejecución del playbook",
+                    "__task_action": "ansible.builtin.include_vars",
+                    "duration": 0.038909,
+                    "end": "2026-06-12T07:11:04.331944+00:00",
+                    "event_loop": null,
+                    "host": "ubuntu22",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "ubuntu22",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "ansible_facts": {
+                            "requisitos_despliegue_apache": {
+                                "directorio_backups_aplicacion": "~/ansible_app_backups",
+                                "directorio_temporal_clonado_aplicacion": "~/ansible_app_deploy",
+                                "distros_soportadas": [
+                                    "redhat",
+                                    "ubuntu"
+                                ],
+                                "paquetes": [
+                                    {
+                                        "nombre": "git",
+                                        "redhat": {
+                                            "directorio_configuracion_aplicacion": null,
+                                            "repo": null
+                                        },
+                                        "ubuntu": {
+                                            "directorio_configuracion_aplicacion": null,
+                                            "repo": {
+                                                "clave": "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xE1DD270288B4E6030699E45FA1715D88E1DF1F24",
+                                                "components": "main",
+                                                "nombre": "git-core",
+                                                "suites": "{{ ansible_distribution_release }}",
+                                                "uris": "https://ppa.launchpadcontent.net/git-core/ppa/ubuntu"
+                                            }
+                                        },
+                                        "version": "2.54.0",
+                                        "version_matching": "major"
+                                    },
+                                    {
+                                        "nombre": "curl",
+                                        "version_matching": "latest"
+                                    }
+                                ]
+                            }
+                        },
+                        "ansible_included_var_files": [
+                            "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/internal_vars/constantes.playbook.yaml"
+                        ],
+                        "changed": false
+                    },
+                    "resolved_action": "ansible.builtin.include_vars",
+                    "start": "2026-06-12T07:11:04.293035+00:00",
+                    "task": "Cargar variables internas necesarias para la ejecución del playbook",
+                    "task_action": "ansible.builtin.include_vars",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.carga.datos.yaml:1",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-000000000011",
+                    "uuid": "67166ba1-595f-49f1-bf6f-cff89c64de6d"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "0s",
+                    "__host": "rocky8",
+                    "__number": 2,
+                    "__result": "Ok",
+                    "__task": "Cargar valores por defecto del playbook",
+                    "__task_action": "ansible.builtin.include_vars",
+                    "duration": 0.039014,
+                    "end": "2026-06-12T07:11:04.385176+00:00",
+                    "event_loop": null,
+                    "host": "rocky8",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "rocky8",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "ansible_facts": {
+                            "despliegue_apache_defaults": {
+                                "apache": {
+                                    "redhat": {
+                                        "directorio_configuracion": "/etc/httpd/conf.d",
+                                        "paquete": "httpd",
+                                        "repo": null
+                                    },
+                                    "ubuntu": {
+                                        "directorio_configuracion": "/etc/apache2/sites-enabled",
+                                        "paquete": "apache2",
+                                        "repo": {
+                                            "clave": "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xB8DC7E53946656EFBCE4C1DD71DAEAAB4AD4CAB6",
+                                            "components": "main",
+                                            "nombre": "ondrej-apache2",
+                                            "suites": "{{ ansible_distribution_release }}",
+                                            "uris": "https://ppa.launchpadcontent.net/ondrej/apache2/ubuntu"
+                                        }
+                                    },
+                                    "version": "2.4.68",
+                                    "version_matching": "minor"
+                                },
+                                "aplicacion": {
+                                    "deploy": {
+                                        "fqdn": "*",
+                                        "path": "/var/apache/aplicacion",
+                                        "puerto": 80
+                                    },
+                                    "test": {
+                                        "endpoint": "/",
+                                        "statusCode": 200
+                                    }
+                                }
+                            }
+                        },
+                        "ansible_included_var_files": [
+                            "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/internal_vars/despliegue.apache.defaults.yaml"
+                        ],
+                        "changed": false
+                    },
+                    "resolved_action": "ansible.builtin.include_vars",
+                    "start": "2026-06-12T07:11:04.346162+00:00",
+                    "task": "Cargar valores por defecto del playbook",
+                    "task_action": "ansible.builtin.include_vars",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.carga.datos.yaml:6",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-000000000012",
+                    "uuid": "cb44a94a-82ca-4a2a-bd0d-686d87100849"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "0s",
+                    "__host": "ubuntu22",
+                    "__number": 3,
+                    "__result": "Ok",
+                    "__task": "Cargar valores por defecto del playbook",
+                    "__task_action": "ansible.builtin.include_vars",
+                    "duration": 0.039211,
+                    "end": "2026-06-12T07:11:04.403136+00:00",
+                    "event_loop": null,
+                    "host": "ubuntu22",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "ubuntu22",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "ansible_facts": {
+                            "despliegue_apache_defaults": {
+                                "apache": {
+                                    "redhat": {
+                                        "directorio_configuracion": "/etc/httpd/conf.d",
+                                        "paquete": "httpd",
+                                        "repo": null
+                                    },
+                                    "ubuntu": {
+                                        "directorio_configuracion": "/etc/apache2/sites-enabled",
+                                        "paquete": "apache2",
+                                        "repo": {
+                                            "clave": "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xB8DC7E53946656EFBCE4C1DD71DAEAAB4AD4CAB6",
+                                            "components": "main",
+                                            "nombre": "ondrej-apache2",
+                                            "suites": "{{ ansible_distribution_release }}",
+                                            "uris": "https://ppa.launchpadcontent.net/ondrej/apache2/ubuntu"
+                                        }
+                                    },
+                                    "version": "2.4.68",
+                                    "version_matching": "minor"
+                                },
+                                "aplicacion": {
+                                    "deploy": {
+                                        "fqdn": "*",
+                                        "path": "/var/apache/aplicacion",
+                                        "puerto": 80
+                                    },
+                                    "test": {
+                                        "endpoint": "/",
+                                        "statusCode": 200
+                                    }
+                                }
+                            }
+                        },
+                        "ansible_included_var_files": [
+                            "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/internal_vars/despliegue.apache.defaults.yaml"
+                        ],
+                        "changed": false
+                    },
+                    "resolved_action": "ansible.builtin.include_vars",
+                    "start": "2026-06-12T07:11:04.363925+00:00",
+                    "task": "Cargar valores por defecto del playbook",
+                    "task_action": "ansible.builtin.include_vars",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.carga.datos.yaml:6",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-000000000012",
+                    "uuid": "72e203b7-3327-4862-8bfb-6b0a6ce230bb"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "3s",
+                    "__host": "rocky8",
+                    "__number": 4,
+                    "__result": "Ok",
+                    "__task": "Obtener el Sistema Operativo destino",
+                    "__task_action": "ansible.builtin.setup",
+                    "duration": 3.1734,
+                    "end": "2026-06-12T07:11:07.591639+00:00",
+                    "event_loop": null,
+                    "host": "rocky8",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "rocky8",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "_ansible_verbose_override": true,
+                        "ansible_facts": {
+                            "ansible_distribution": "Rocky",
+                            "ansible_distribution_file_parsed": true,
+                            "ansible_distribution_file_path": "/etc/redhat-release",
+                            "ansible_distribution_file_variety": "RedHat",
+                            "ansible_distribution_major_version": "8",
+                            "ansible_distribution_release": "Green Obsidian",
+                            "ansible_distribution_version": "8.10",
+                            "ansible_os_family": "RedHat",
+                            "gather_subset": [
+                                "!all",
+                                "!min",
+                                "distribution"
+                            ],
+                            "module_setup": true
+                        },
+                        "changed": false,
+                        "invocation": {
+                            "module_args": {
+                                "fact_path": "/etc/ansible/facts.d",
+                                "filter": [],
+                                "gather_subset": [
+                                    "!all",
+                                    "!min",
+                                    "distribution"
+                                ],
+                                "gather_timeout": 10
+                            }
+                        }
+                    },
+                    "resolved_action": "ansible.builtin.setup",
+                    "start": "2026-06-12T07:11:04.418239+00:00",
+                    "task": "Obtener el Sistema Operativo destino",
+                    "task_action": "ansible.builtin.setup",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.carga.datos.yaml:11",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-000000000013",
+                    "uuid": "151914b3-3175-4979-b399-57f27edf7d3c"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "4s",
+                    "__host": "ubuntu22",
+                    "__number": 5,
+                    "__result": "Ok",
+                    "__task": "Obtener el Sistema Operativo destino",
+                    "__task_action": "ansible.builtin.setup",
+                    "duration": 3.524659,
+                    "end": "2026-06-12T07:11:07.960105+00:00",
+                    "event_loop": null,
+                    "host": "ubuntu22",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "ubuntu22",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "_ansible_verbose_override": true,
+                        "ansible_facts": {
+                            "ansible_distribution": "Ubuntu",
+                            "ansible_distribution_file_parsed": true,
+                            "ansible_distribution_file_path": "/etc/os-release",
+                            "ansible_distribution_file_variety": "Debian",
+                            "ansible_distribution_major_version": "22",
+                            "ansible_distribution_release": "jammy",
+                            "ansible_distribution_version": "22.04",
+                            "ansible_os_family": "Debian",
+                            "gather_subset": [
+                                "!all",
+                                "!min",
+                                "distribution"
+                            ],
+                            "module_setup": true
+                        },
+                        "changed": false,
+                        "invocation": {
+                            "module_args": {
+                                "fact_path": "/etc/ansible/facts.d",
+                                "filter": [],
+                                "gather_subset": [
+                                    "!all",
+                                    "!min",
+                                    "distribution"
+                                ],
+                                "gather_timeout": 10
+                            }
+                        }
+                    },
+                    "resolved_action": "ansible.builtin.setup",
+                    "start": "2026-06-12T07:11:04.435446+00:00",
+                    "task": "Obtener el Sistema Operativo destino",
+                    "task_action": "ansible.builtin.setup",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.carga.datos.yaml:11",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-000000000013",
+                    "uuid": "17d7e85d-9bda-4a9a-b07b-68e12913b8c1"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "0s",
+                    "__host": "rocky8",
+                    "__number": 6,
+                    "__result": "Ok",
+                    "__task": "Variables que reusamos a nivel del playbook",
+                    "__task_action": "ansible.builtin.set_fact",
+                    "duration": 0.100181,
+                    "end": "2026-06-12T07:11:08.083307+00:00",
+                    "event_loop": null,
+                    "host": "rocky8",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "rocky8",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "ansible_facts": {
+                            "familia": "redhat",
+                            "http_endpoint": "/",
+                            "http_host_header": "localhost",
+                            "http_port": "80",
+                            "http_status_code": "200"
+                        },
+                        "changed": false
+                    },
+                    "resolved_action": "ansible.builtin.set_fact",
+                    "start": "2026-06-12T07:11:07.983126+00:00",
+                    "task": "Variables que reusamos a nivel del playbook",
+                    "task_action": "ansible.builtin.set_fact",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.carga.datos.yaml:21",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-000000000014",
+                    "uuid": "2e7af3bc-c2fe-49c6-b426-81f7011280cc"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "0s",
+                    "__host": "ubuntu22",
+                    "__number": 7,
+                    "__result": "Ok",
+                    "__task": "Variables que reusamos a nivel del playbook",
+                    "__task_action": "ansible.builtin.set_fact",
+                    "duration": 0.101554,
+                    "end": "2026-06-12T07:11:08.107204+00:00",
+                    "event_loop": null,
+                    "host": "ubuntu22",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "ubuntu22",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "ansible_facts": {
+                            "familia": "ubuntu",
+                            "http_endpoint": "/",
+                            "http_host_header": "localhost",
+                            "http_port": "80",
+                            "http_status_code": "200"
+                        },
+                        "changed": false
+                    },
+                    "resolved_action": "ansible.builtin.set_fact",
+                    "start": "2026-06-12T07:11:08.005650+00:00",
+                    "task": "Variables que reusamos a nivel del playbook",
+                    "task_action": "ansible.builtin.set_fact",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.carga.datos.yaml:21",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-000000000014",
+                    "uuid": "848c144a-fcfb-4412-aee6-0b35898a4499"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "0s",
+                    "__host": "rocky8",
+                    "__number": 8,
+                    "__result": "Ok",
+                    "__task": "Informar de la compatibilidad del playbook con el sistema operativo destino",
+                    "__task_action": "ansible.builtin.debug",
+                    "duration": 0.054349,
+                    "end": "2026-06-12T07:11:08.181281+00:00",
+                    "event_loop": null,
+                    "host": "rocky8",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "rocky8",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "_ansible_verbose_always": true,
+                        "changed": false,
+                        "msg": "El sistema operativo del host es: Rocky (familia: redhat).\nEste playbook es compatible con el sistema operativo destino.\n"
+                    },
+                    "resolved_action": "ansible.builtin.debug",
+                    "start": "2026-06-12T07:11:08.126932+00:00",
+                    "task": "Informar de la compatibilidad del playbook con el sistema operativo destino",
+                    "task_action": "ansible.builtin.debug",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.verificacion.yaml:1",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-000000000018",
+                    "uuid": "67396f8a-695e-4f5d-b585-af1f9b2f8c40"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "0s",
+                    "__host": "ubuntu22",
+                    "__number": 9,
+                    "__result": "Ok",
+                    "__task": "Informar de la compatibilidad del playbook con el sistema operativo destino",
+                    "__task_action": "ansible.builtin.debug",
+                    "duration": 0.056136,
+                    "end": "2026-06-12T07:11:08.204068+00:00",
+                    "event_loop": null,
+                    "host": "ubuntu22",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "ubuntu22",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "_ansible_verbose_always": true,
+                        "changed": false,
+                        "msg": "El sistema operativo del host es: Ubuntu (familia: ubuntu).\nEste playbook es compatible con el sistema operativo destino.\n"
+                    },
+                    "resolved_action": "ansible.builtin.debug",
+                    "start": "2026-06-12T07:11:08.147932+00:00",
+                    "task": "Informar de la compatibilidad del playbook con el sistema operativo destino",
+                    "task_action": "ansible.builtin.debug",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.verificacion.yaml:1",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-000000000018",
+                    "uuid": "754382cd-5d75-4cf6-97c3-b98ff3b84af4"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "4s",
+                    "__host": "rocky8",
+                    "__number": 10,
+                    "__result": "Ok",
+                    "__task": "Verificar que la URL del repo de git se ha suministrado y es accesible",
+                    "__task_action": "ansible.builtin.uri",
+                    "duration": 3.522145,
+                    "end": "2026-06-12T07:11:11.786190+00:00",
+                    "event_loop": null,
+                    "host": "rocky8",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "rocky8",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "accept_ranges": "bytes",
+                        "cache_control": "max-age=0, private, must-revalidate",
+                        "changed": false,
+                        "connection": "close",
+                        "content_security_policy": "default-src 'none'; base-uri 'self'; child-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com github.githubassets.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com *.actions.githubusercontent.com wss://*.actions.githubusercontent.com productionresultssa0.blob.core.windows.net productionresultssa1.blob.core.windows.net productionresultssa2.blob.core.windows.net productionresultssa3.blob.core.windows.net productionresultssa4.blob.core.windows.net productionresultssa5.blob.core.windows.net productionresultssa6.blob.core.windows.net productionresultssa7.blob.core.windows.net productionresultssa8.blob.core.windows.net productionresultssa9.blob.core.windows.net productionresultssa10.blob.core.windows.net productionresultssa11.blob.core.windows.net productionresultssa12.blob.core.windows.net productionresultssa13.blob.core.windows.net productionresultssa14.blob.core.windows.net productionresultssa15.blob.core.windows.net productionresultssa16.blob.core.windows.net productionresultssa17.blob.core.windows.net productionresultssa18.blob.core.windows.net productionresultssa19.blob.core.windows.net github-production-repository-image-32fea6.s3.amazonaws.com github-production-release-asset-2e65be.s3.amazonaws.com insights.github.com wss://alive.github.com wss://alive-staging.github.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com release-assets.githubusercontent.com secured-user-images.githubusercontent.com user-images.githubusercontent.com private-user-images.githubusercontent.com opengraph.githubassets.com marketplace-screenshots.githubusercontent.com copilotprodattachments.blob.core.windows.net/github-production-copilot-attachments/ github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com explore-feed.github.com objects-origin.githubusercontent.com *.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com secured-user-images.githubusercontent.com private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com github.githubassets.com; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/",
+                        "content_type": "text/html; charset=utf-8",
+                        "cookies": {
+                            "_gh_sess": "8I2WzXHFWFvVtYixU%2FxtgI%2Fx7MjaILq%2FKnl1ROIvU%2B4uz4DZvRYspHuatfur4ofgkPsoSRUUFu6MOVEACSlbNf9YgvtzFyPJPN5ZAdJARZFQBVnZiiwvb0PJySW%2BTNsGucSk9XfHdYlNj%2FEhFCoBRODbLSOjUQxX3mUKkUPcL%2FAq7jUjUbC2pQhwgDZS%2BVe%2BrKUYCugPNWZrX1W8d2mHFMUidIeiwWQw%2BpQDLghuAfXe971C3t1p1T6zZD%2FLc1ysQecX8Mfmro6IMiRNIfkREQ%3D%3D--NMnsZnSRPBTBlvJt--B%2BHD4tljMSt%2FE9OH8hSj0A%3D%3D",
+                            "_octo": "GH1.1.2074651071.1781248271",
+                            "logged_in": "no"
+                        },
+                        "cookies_string": "_gh_sess=8I2WzXHFWFvVtYixU%2FxtgI%2Fx7MjaILq%2FKnl1ROIvU%2B4uz4DZvRYspHuatfur4ofgkPsoSRUUFu6MOVEACSlbNf9YgvtzFyPJPN5ZAdJARZFQBVnZiiwvb0PJySW%2BTNsGucSk9XfHdYlNj%2FEhFCoBRODbLSOjUQxX3mUKkUPcL%2FAq7jUjUbC2pQhwgDZS%2BVe%2BrKUYCugPNWZrX1W8d2mHFMUidIeiwWQw%2BpQDLghuAfXe971C3t1p1T6zZD%2FLc1ysQecX8Mfmro6IMiRNIfkREQ%3D%3D--NMnsZnSRPBTBlvJt--B%2BHD4tljMSt%2FE9OH8hSj0A%3D%3D; _octo=GH1.1.2074651071.1781248271; logged_in=no",
+                        "date": "Fri, 12 Jun 2026 07:11:11 GMT",
+                        "elapsed": 0,
+                        "etag": "W/\"cc7ae1602c8503cd97a659abc7fed576\"",
+                        "invocation": {
+                            "module_args": {
+                                "attributes": null,
+                                "body": null,
+                                "body_format": "raw",
+                                "ca_path": null,
+                                "ciphers": null,
+                                "client_cert": null,
+                                "client_key": null,
+                                "creates": null,
+                                "decompress": true,
+                                "dest": null,
+                                "follow_redirects": "safe",
+                                "force": false,
+                                "force_basic_auth": false,
+                                "group": null,
+                                "headers": {},
+                                "http_agent": "ansible-httpget",
+                                "method": "GET",
+                                "mode": null,
+                                "owner": null,
+                                "remote_src": false,
+                                "removes": null,
+                                "return_content": false,
+                                "selevel": null,
+                                "serole": null,
+                                "setype": null,
+                                "seuser": null,
+                                "src": null,
+                                "status_code": [
+                                    200
+                                ],
+                                "timeout": 30,
+                                "unix_socket": null,
+                                "unredirected_headers": [],
+                                "unsafe_writes": false,
+                                "url": "https://github.com/IvanciniGT/webEjemploAnsible",
+                                "url_password": null,
+                                "url_username": null,
+                                "use_gssapi": false,
+                                "use_netrc": true,
+                                "use_proxy": true,
+                                "validate_certs": true
+                            }
+                        },
+                        "msg": "OK (unknown bytes)",
+                        "redirected": false,
+                        "referrer_policy": "no-referrer-when-downgrade",
+                        "server": "github.com",
+                        "set_cookie": "_gh_sess=8I2WzXHFWFvVtYixU%2FxtgI%2Fx7MjaILq%2FKnl1ROIvU%2B4uz4DZvRYspHuatfur4ofgkPsoSRUUFu6MOVEACSlbNf9YgvtzFyPJPN5ZAdJARZFQBVnZiiwvb0PJySW%2BTNsGucSk9XfHdYlNj%2FEhFCoBRODbLSOjUQxX3mUKkUPcL%2FAq7jUjUbC2pQhwgDZS%2BVe%2BrKUYCugPNWZrX1W8d2mHFMUidIeiwWQw%2BpQDLghuAfXe971C3t1p1T6zZD%2FLc1ysQecX8Mfmro6IMiRNIfkREQ%3D%3D--NMnsZnSRPBTBlvJt--B%2BHD4tljMSt%2FE9OH8hSj0A%3D%3D; path=/; HttpOnly; secure; SameSite=Lax, _octo=GH1.1.2074651071.1781248271; expires=Sat, 12 Jun 2027 07:11:11 GMT; domain=.github.com; path=/; secure; SameSite=Lax, logged_in=no; expires=Sat, 12 Jun 2027 07:11:11 GMT; domain=.github.com; path=/; HttpOnly; secure; SameSite=Lax",
+                        "status": 200,
+                        "strict_transport_security": "max-age=31536000; includeSubdomains; preload",
+                        "transfer_encoding": "chunked",
+                        "url": "https://github.com/IvanciniGT/webEjemploAnsible",
+                        "vary": "X-PJAX, X-PJAX-Container, Turbo-Visit, Turbo-Frame, X-Requested-With, Sec-Fetch-Site,Accept-Encoding, Accept, X-Requested-With",
+                        "x_content_type_options": "nosniff",
+                        "x_frame_options": "deny",
+                        "x_github_request_id": "E536:18C99F:59A11F7:4840D61:6A2BB10F",
+                        "x_xss_protection": "0"
+                    },
+                    "resolved_action": "ansible.builtin.uri",
+                    "start": "2026-06-12T07:11:08.264045+00:00",
+                    "task": "Verificar que la URL del repo de git se ha suministrado y es accesible",
+                    "task_action": "ansible.builtin.uri",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.verificacion.yaml:17",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-00000000001a",
+                    "uuid": "177b4934-a111-4484-856a-d450937a0b3b"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "4s",
+                    "__host": "ubuntu22",
+                    "__number": 11,
+                    "__result": "Ok",
+                    "__task": "Verificar que la URL del repo de git se ha suministrado y es accesible",
+                    "__task_action": "ansible.builtin.uri",
+                    "duration": 3.52839,
+                    "end": "2026-06-12T07:11:11.813446+00:00",
+                    "event_loop": null,
+                    "host": "ubuntu22",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "ubuntu22",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "accept_ranges": "bytes",
+                        "cache_control": "max-age=0, private, must-revalidate",
+                        "changed": false,
+                        "connection": "close",
+                        "content_security_policy": "default-src 'none'; base-uri 'self'; child-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com github.githubassets.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com *.actions.githubusercontent.com wss://*.actions.githubusercontent.com productionresultssa0.blob.core.windows.net productionresultssa1.blob.core.windows.net productionresultssa2.blob.core.windows.net productionresultssa3.blob.core.windows.net productionresultssa4.blob.core.windows.net productionresultssa5.blob.core.windows.net productionresultssa6.blob.core.windows.net productionresultssa7.blob.core.windows.net productionresultssa8.blob.core.windows.net productionresultssa9.blob.core.windows.net productionresultssa10.blob.core.windows.net productionresultssa11.blob.core.windows.net productionresultssa12.blob.core.windows.net productionresultssa13.blob.core.windows.net productionresultssa14.blob.core.windows.net productionresultssa15.blob.core.windows.net productionresultssa16.blob.core.windows.net productionresultssa17.blob.core.windows.net productionresultssa18.blob.core.windows.net productionresultssa19.blob.core.windows.net github-production-repository-image-32fea6.s3.amazonaws.com github-production-release-asset-2e65be.s3.amazonaws.com insights.github.com wss://alive.github.com wss://alive-staging.github.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com release-assets.githubusercontent.com secured-user-images.githubusercontent.com user-images.githubusercontent.com private-user-images.githubusercontent.com opengraph.githubassets.com marketplace-screenshots.githubusercontent.com copilotprodattachments.blob.core.windows.net/github-production-copilot-attachments/ github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com explore-feed.github.com objects-origin.githubusercontent.com *.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com secured-user-images.githubusercontent.com private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com github.githubassets.com; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/",
+                        "content_type": "text/html; charset=utf-8",
+                        "cookies": {
+                            "_gh_sess": "6zxwxaD0WxwHc2rx%2FhxUeHA%2Fs1vUuAUOAglela0%2FjiUzoI69e8cZjYbuJnJYGfl0yDyFDVgVgcCachFaB%2FAbF3363NCXDr2hznvdxe7w6oTvC0oC4n%2Fp0IB8nDWYhH%2BvRdh5IuFzB4ikVwD2qtV7JKk9NGSRfhVgkSRdGkNoYrzKDEuXwiS8q6w%2FE4g3Jj95ZZTJS94skcVD3VqWmyZmvTeJwxkFjsAllkhqZxJtD4sfLqdaQreoiUdAQfYzf4ET9fY5DgTehsFINFzI0mjEog%3D%3D--5o5ssWC92Bp55wFZ--OkKnUZDKyM6PAzvnlvraog%3D%3D",
+                            "_octo": "GH1.1.1395972601.1781248270",
+                            "logged_in": "no"
+                        },
+                        "cookies_string": "_octo=GH1.1.1395972601.1781248270; logged_in=no; _gh_sess=6zxwxaD0WxwHc2rx%2FhxUeHA%2Fs1vUuAUOAglela0%2FjiUzoI69e8cZjYbuJnJYGfl0yDyFDVgVgcCachFaB%2FAbF3363NCXDr2hznvdxe7w6oTvC0oC4n%2Fp0IB8nDWYhH%2BvRdh5IuFzB4ikVwD2qtV7JKk9NGSRfhVgkSRdGkNoYrzKDEuXwiS8q6w%2FE4g3Jj95ZZTJS94skcVD3VqWmyZmvTeJwxkFjsAllkhqZxJtD4sfLqdaQreoiUdAQfYzf4ET9fY5DgTehsFINFzI0mjEog%3D%3D--5o5ssWC92Bp55wFZ--OkKnUZDKyM6PAzvnlvraog%3D%3D",
+                        "date": "Fri, 12 Jun 2026 07:11:11 GMT",
+                        "elapsed": 0,
+                        "etag": "W/\"cc7ae1602c8503cd97a659abc7fed576\"",
+                        "invocation": {
+                            "module_args": {
+                                "attributes": null,
+                                "body": null,
+                                "body_format": "raw",
+                                "ca_path": null,
+                                "ciphers": null,
+                                "client_cert": null,
+                                "client_key": null,
+                                "creates": null,
+                                "decompress": true,
+                                "dest": null,
+                                "follow_redirects": "safe",
+                                "force": false,
+                                "force_basic_auth": false,
+                                "group": null,
+                                "headers": {},
+                                "http_agent": "ansible-httpget",
+                                "method": "GET",
+                                "mode": null,
+                                "owner": null,
+                                "remote_src": false,
+                                "removes": null,
+                                "return_content": false,
+                                "selevel": null,
+                                "serole": null,
+                                "setype": null,
+                                "seuser": null,
+                                "src": null,
+                                "status_code": [
+                                    200
+                                ],
+                                "timeout": 30,
+                                "unix_socket": null,
+                                "unredirected_headers": [],
+                                "unsafe_writes": false,
+                                "url": "https://github.com/IvanciniGT/webEjemploAnsible",
+                                "url_password": null,
+                                "url_username": null,
+                                "use_gssapi": false,
+                                "use_netrc": true,
+                                "use_proxy": true,
+                                "validate_certs": true
+                            }
+                        },
+                        "msg": "OK (unknown bytes)",
+                        "redirected": false,
+                        "referrer_policy": "no-referrer-when-downgrade",
+                        "server": "github.com",
+                        "set_cookie": "_gh_sess=6zxwxaD0WxwHc2rx%2FhxUeHA%2Fs1vUuAUOAglela0%2FjiUzoI69e8cZjYbuJnJYGfl0yDyFDVgVgcCachFaB%2FAbF3363NCXDr2hznvdxe7w6oTvC0oC4n%2Fp0IB8nDWYhH%2BvRdh5IuFzB4ikVwD2qtV7JKk9NGSRfhVgkSRdGkNoYrzKDEuXwiS8q6w%2FE4g3Jj95ZZTJS94skcVD3VqWmyZmvTeJwxkFjsAllkhqZxJtD4sfLqdaQreoiUdAQfYzf4ET9fY5DgTehsFINFzI0mjEog%3D%3D--5o5ssWC92Bp55wFZ--OkKnUZDKyM6PAzvnlvraog%3D%3D; path=/; HttpOnly; secure; SameSite=Lax, _octo=GH1.1.1395972601.1781248270; expires=Sat, 12 Jun 2027 07:11:10 GMT; domain=.github.com; path=/; secure; SameSite=Lax, logged_in=no; expires=Sat, 12 Jun 2027 07:11:10 GMT; domain=.github.com; path=/; HttpOnly; secure; SameSite=Lax",
+                        "status": 200,
+                        "strict_transport_security": "max-age=31536000; includeSubdomains; preload",
+                        "transfer_encoding": "chunked",
+                        "url": "https://github.com/IvanciniGT/webEjemploAnsible",
+                        "vary": "X-PJAX, X-PJAX-Container, Turbo-Visit, Turbo-Frame, X-Requested-With, Sec-Fetch-Site,Accept-Encoding, Accept, X-Requested-With",
+                        "x_content_type_options": "nosniff",
+                        "x_frame_options": "deny",
+                        "x_github_request_id": "E534:18C99F:59A10CC:4840C53:6A2BB10E",
+                        "x_xss_protection": "0"
+                    },
+                    "resolved_action": "ansible.builtin.uri",
+                    "start": "2026-06-12T07:11:08.285056+00:00",
+                    "task": "Verificar que la URL del repo de git se ha suministrado y es accesible",
+                    "task_action": "ansible.builtin.uri",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.verificacion.yaml:17",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-00000000001a",
+                    "uuid": "1d4c12f9-42b1-4071-ba9f-2bc25b3ef39d"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "0s",
+                    "__host": "rocky8",
+                    "__number": 12,
+                    "__result": "Ok",
+                    "__task": "Asegurar que está instalada la paquetería necesaria para el playbook",
+                    "__task_action": "ansible.builtin.include_tasks",
+                    "duration": 0.034272,
+                    "end": "2026-06-12T07:11:11.868269+00:00",
+                    "event_loop": null,
+                    "host": "rocky8",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "rocky8",
+                    "res": {
+                        "changed": false,
+                        "include": "pre-tasks/tareas.instalacion.paqueteria.yaml",
+                        "include_args": {}
+                    },
+                    "resolved_action": null,
+                    "start": "2026-06-12T07:11:11.833997+00:00",
+                    "task": "Asegurar que está instalada la paquetería necesaria para el playbook",
+                    "task_action": "ansible.builtin.include_tasks",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.requisitos.yaml:1",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-00000000001e",
+                    "uuid": "e908c3ab-b743-4580-941f-63b2648d5af3"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "0s",
+                    "__host": "ubuntu22",
+                    "__number": 13,
+                    "__result": "Ok",
+                    "__task": "Asegurar que está instalada la paquetería necesaria para el playbook",
+                    "__task_action": "ansible.builtin.include_tasks",
+                    "duration": 0.028398,
+                    "end": "2026-06-12T07:11:11.883781+00:00",
+                    "event_loop": null,
+                    "host": "ubuntu22",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "ubuntu22",
+                    "res": {
+                        "changed": false,
+                        "include": "pre-tasks/tareas.instalacion.paqueteria.yaml",
+                        "include_args": {}
+                    },
+                    "resolved_action": null,
+                    "start": "2026-06-12T07:11:11.855383+00:00",
+                    "task": "Asegurar que está instalada la paquetería necesaria para el playbook",
+                    "task_action": "ansible.builtin.include_tasks",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.requisitos.yaml:1",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-00000000001e",
+                    "uuid": "23798049-0964-4107-95d8-01777088723a"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "0s",
+                    "__host": "rocky8",
+                    "__number": 14,
+                    "__result": "Ok",
+                    "__task": "Asegurar que los paquetes requeridos por el playbook quedan instalados",
+                    "__task_action": "ansible.builtin.include_tasks",
+                    "duration": 0.069217,
+                    "end": "2026-06-12T07:11:11.997149+00:00",
+                    "event_loop": null,
+                    "host": "rocky8",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "rocky8",
+                    "res": {
+                        "changed": false,
+                        "msg": "All items completed",
+                        "results": [
+                            {
+                                "_ansible_item_label": {
+                                    "nombre": "git",
+                                    "redhat": {
+                                        "directorio_configuracion_aplicacion": null,
+                                        "repo": null
+                                    },
+                                    "ubuntu": {
+                                        "directorio_configuracion_aplicacion": null,
+                                        "repo": {
+                                            "clave": "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xE1DD270288B4E6030699E45FA1715D88E1DF1F24",
+                                            "components": "main",
+                                            "nombre": "git-core",
+                                            "suites": "Green Obsidian",
+                                            "uris": "https://ppa.launchpadcontent.net/git-core/ppa/ubuntu"
+                                        }
+                                    },
+                                    "version": "2.54.0",
+                                    "version_matching": "major"
+                                },
+                                "ansible_loop_var": "paquete",
+                                "include": "utils/redhat/tareas.instalacion.paquete.yaml",
+                                "include_args": {},
+                                "paquete": {
+                                    "nombre": "git",
+                                    "redhat": {
+                                        "directorio_configuracion_aplicacion": null,
+                                        "repo": null
+                                    },
+                                    "ubuntu": {
+                                        "directorio_configuracion_aplicacion": null,
+                                        "repo": {
+                                            "clave": "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xE1DD270288B4E6030699E45FA1715D88E1DF1F24",
+                                            "components": "main",
+                                            "nombre": "git-core",
+                                            "suites": "Green Obsidian",
+                                            "uris": "https://ppa.launchpadcontent.net/git-core/ppa/ubuntu"
+                                        }
+                                    },
+                                    "version": "2.54.0",
+                                    "version_matching": "major"
+                                }
+                            },
+                            {
+                                "_ansible_item_label": {
+                                    "nombre": "curl",
+                                    "version_matching": "latest"
+                                },
+                                "ansible_loop_var": "paquete",
+                                "include": "utils/redhat/tareas.instalacion.paquete.yaml",
+                                "include_args": {},
+                                "paquete": {
+                                    "nombre": "curl",
+                                    "version_matching": "latest"
+                                }
+                            }
+                        ]
+                    },
+                    "resolved_action": null,
+                    "start": "2026-06-12T07:11:11.927932+00:00",
+                    "task": "Asegurar que los paquetes requeridos por el playbook quedan instalados",
+                    "task_action": "ansible.builtin.include_tasks",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.instalacion.paqueteria.yaml:2",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-00000000006e",
+                    "uuid": "ebc186d3-3f3b-49a8-ac7e-3672255544e6"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "0s",
+                    "__host": "ubuntu22",
+                    "__number": 15,
+                    "__result": "Ok",
+                    "__task": "Asegurar que los paquetes requeridos por el playbook quedan instalados",
+                    "__task_action": "ansible.builtin.include_tasks",
+                    "duration": 0.082384,
+                    "end": "2026-06-12T07:11:12.032630+00:00",
+                    "event_loop": null,
+                    "host": "ubuntu22",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "ubuntu22",
+                    "res": {
+                        "changed": false,
+                        "msg": "All items completed",
+                        "results": [
+                            {
+                                "_ansible_item_label": {
+                                    "nombre": "git",
+                                    "redhat": {
+                                        "directorio_configuracion_aplicacion": null,
+                                        "repo": null
+                                    },
+                                    "ubuntu": {
+                                        "directorio_configuracion_aplicacion": null,
+                                        "repo": {
+                                            "clave": "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xE1DD270288B4E6030699E45FA1715D88E1DF1F24",
+                                            "components": "main",
+                                            "nombre": "git-core",
+                                            "suites": "jammy",
+                                            "uris": "https://ppa.launchpadcontent.net/git-core/ppa/ubuntu"
+                                        }
+                                    },
+                                    "version": "2.54.0",
+                                    "version_matching": "major"
+                                },
+                                "ansible_loop_var": "paquete",
+                                "include": "utils/ubuntu/tareas.instalacion.paquete.yaml",
+                                "include_args": {},
+                                "paquete": {
+                                    "nombre": "git",
+                                    "redhat": {
+                                        "directorio_configuracion_aplicacion": null,
+                                        "repo": null
+                                    },
+                                    "ubuntu": {
+                                        "directorio_configuracion_aplicacion": null,
+                                        "repo": {
+                                            "clave": "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xE1DD270288B4E6030699E45FA1715D88E1DF1F24",
+                                            "components": "main",
+                                            "nombre": "git-core",
+                                            "suites": "jammy",
+                                            "uris": "https://ppa.launchpadcontent.net/git-core/ppa/ubuntu"
+                                        }
+                                    },
+                                    "version": "2.54.0",
+                                    "version_matching": "major"
+                                }
+                            },
+                            {
+                                "_ansible_item_label": {
+                                    "nombre": "curl",
+                                    "version_matching": "latest"
+                                },
+                                "ansible_loop_var": "paquete",
+                                "include": "utils/ubuntu/tareas.instalacion.paquete.yaml",
+                                "include_args": {},
+                                "paquete": {
+                                    "nombre": "curl",
+                                    "version_matching": "latest"
+                                }
+                            }
+                        ]
+                    },
+                    "resolved_action": null,
+                    "start": "2026-06-12T07:11:11.950246+00:00",
+                    "task": "Asegurar que los paquetes requeridos por el playbook quedan instalados",
+                    "task_action": "ansible.builtin.include_tasks",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.instalacion.paqueteria.yaml:2",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-00000000006e",
+                    "uuid": "d7b5d974-f5d1-439a-aa17-fcbf3fe2692f"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "0s",
+                    "__host": "rocky8",
+                    "__number": 16,
+                    "__result": "Skipped",
+                    "__task": "Asegurar que el repositorio DNF queda registrado si se ha indicado para git",
+                    "__task_action": "ansible.builtin.yum_repository",
+                    "duration": 0.060727,
+                    "end": "2026-06-12T07:11:12.251876+00:00",
+                    "event_loop": null,
+                    "host": "rocky8",
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "rocky8",
+                    "resolved_action": "ansible.builtin.yum_repository",
+                    "start": "2026-06-12T07:11:12.191149+00:00",
+                    "task": "Asegurar que el repositorio DNF queda registrado si se ha indicado para git",
+                    "task_action": "ansible.builtin.yum_repository",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/utils/redhat/tareas.instalacion.paquete.yaml:1",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-00000000008d",
+                    "uuid": "ca7d5f06-83b8-4be0-b719-7e0e7bfa32a1"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "5s",
+                    "__host": "rocky8",
+                    "__number": 17,
+                    "__result": "Failed",
+                    "__task": "Asegurar que queda instalado el paquete git",
+                    "__task_action": "ansible.builtin.dnf",
+                    "duration": 5.176513,
+                    "end": "2026-06-12T07:11:17.467155+00:00",
+                    "event_loop": null,
+                    "host": "rocky8",
+                    "ignore_errors": null,
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "rocky8",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "ansible_facts": {
+                            "pkg_mgr": "dnf"
+                        },
+                        "changed": false,
+                        "invocation": {
+                            "module_args": {
+                                "allow_downgrade": false,
+                                "allowerasing": false,
+                                "autoremove": false,
+                                "best": null,
+                                "bugfix": false,
+                                "cacheonly": false,
+                                "conf_file": null,
+                                "disable_excludes": null,
+                                "disable_gpg_check": false,
+                                "disable_plugin": [],
+                                "disablerepo": [],
+                                "download_dir": null,
+                                "download_only": false,
+                                "enable_plugin": [],
+                                "enablerepo": [],
+                                "exclude": [],
+                                "install_repoquery": true,
+                                "install_weak_deps": true,
+                                "installroot": "/",
+                                "list": null,
+                                "lock_timeout": 30,
+                                "name": [
+                                    "git-2*"
+                                ],
+                                "nobest": null,
+                                "releasever": null,
+                                "security": false,
+                                "skip_broken": false,
+                                "sslverify": true,
+                                "state": "present",
+                                "update_cache": true,
+                                "update_only": false,
+                                "use_backend": "auto",
+                                "validate_certs": true
+                            }
+                        },
+                        "msg": "Could not import the dnf python module using /usr/bin/python3.11 (3.11.13 (main, Apr 28 2026, 13:06:52) [GCC 8.5.0 20210514 (Red Hat 8.5.0-28)]). Please install `python3-dnf` package or ensure you have specified the correct ansible_python_interpreter. (attempted ['/usr/libexec/platform-python', '/usr/bin/python3', '/usr/bin/python'])",
+                        "results": []
+                    },
+                    "resolved_action": "ansible.builtin.dnf",
+                    "start": "2026-06-12T07:11:12.290642+00:00",
+                    "task": "Asegurar que queda instalado el paquete git",
+                    "task_action": "ansible.builtin.dnf",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/utils/redhat/tareas.instalacion.paquete.yaml:12",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-00000000008e",
+                    "uuid": "23b09d51-7101-4874-8b1d-32598430bbc5"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "3s",
+                    "__host": "ubuntu22",
+                    "__number": 18,
+                    "__result": "Failed",
+                    "__task": "Asegurar que el repositorio APT (deb822) queda registrado si se ha indicado para git",
+                    "__task_action": "ansible.builtin.deb822_repository",
+                    "duration": 2.75483,
+                    "end": "2026-06-12T07:11:20.266630+00:00",
+                    "event_loop": null,
+                    "host": "ubuntu22",
+                    "ignore_errors": null,
+                    "play": "Despliegue de Web en Apache",
+                    "play_pattern": "all",
+                    "play_uuid": "ce68d3f4-4f2b-595a-1e02-000000000003",
+                    "playbook": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml",
+                    "playbook_uuid": "a7633da5-c3d3-4624-8779-fdcb3c93fbcb",
+                    "remote_addr": "ubuntu22",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "changed": false,
+                        "exception": "Traceback (most recent call last):\n  File \"/tmp/ansible_ansible.builtin.deb822_repository_payload_548tyfdl/ansible_ansible.builtin.deb822_repository_payload.zip/ansible/modules/deb822_repository.py\", line 250, in <module>\nModuleNotFoundError: No module named 'debian'\n",
+                        "invocation": {
+                            "module_args": {
+                                "allow_downgrade_to_insecure": null,
+                                "allow_insecure": null,
+                                "allow_weak": null,
+                                "architectures": null,
+                                "by_hash": null,
+                                "check_date": null,
+                                "check_valid_until": null,
+                                "components": [
+                                    "main"
+                                ],
+                                "date_max_future": null,
+                                "enabled": true,
+                                "inrelease_path": null,
+                                "languages": null,
+                                "mode": "0644",
+                                "name": "git-core",
+                                "pdiffs": null,
+                                "signed_by": "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xE1DD270288B4E6030699E45FA1715D88E1DF1F24",
+                                "state": "present",
+                                "suites": [
+                                    "jammy"
+                                ],
+                                "targets": null,
+                                "trusted": null,
+                                "types": [
+                                    "deb"
+                                ],
+                                "uris": [
+                                    "https://ppa.launchpadcontent.net/git-core/ppa/ubuntu"
+                                ]
+                            }
+                        },
+                        "msg": "Failed to import the required Python library (python3-debian) on ubuntu22's Python /usr/bin/python3. Please read the module documentation and install it in the appropriate location. If the required library is installed, but Ansible is using the wrong Python interpreter, please consult the documentation on ansible_python_interpreter"
+                    },
+                    "resolved_action": "ansible.builtin.deb822_repository",
+                    "start": "2026-06-12T07:11:17.511800+00:00",
+                    "task": "Asegurar que el repositorio APT (deb822) queda registrado si se ha indicado para git",
+                    "task_action": "ansible.builtin.deb822_repository",
+                    "task_args": "",
+                    "task_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/utils/ubuntu/tareas.instalacion.paquete.yaml:1",
+                    "task_uuid": "ce68d3f4-4f2b-595a-1e02-000000000097",
+                    "uuid": "8ec221f8-acd7-46e9-9581-2847b30a70d9"
+                }
+            ],
+            "uuid": "ce68d3f4-4f2b-595a-1e02-000000000003"
+        }
+    ],
+    "settings_entries": {
+        "ansible-navigator": {
+            "ansible": {
+                "cmdline": "-e @configuracion.despliegue.webejemplo.yaml",
+                "config": {
+                    "help": false
+                },
+                "doc": {
+                    "help": false,
+                    "plugin": {
+                        "type": "module"
+                    }
+                },
+                "inventory": {
+                    "entries": [
+                        "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/inventario/inventario.ini"
+                    ],
+                    "help": false
+                },
+                "playbook": {
+                    "help": false,
+                    "path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/playbook.yaml"
+                }
+            },
+            "ansible-builder": {
+                "help": false,
+                "workdir": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache"
+            },
+            "ansible-runner": {
+                "job-events": false
+            },
+            "app": "run",
+            "collection-doc-cache-path": "/Users/ivan/.cache/ansible-navigator/collection_doc_cache.db",
+            "color": {
+                "enable": true,
+                "osc4": true
+            },
+            "editor": {
+                "command": "vi +{line_number} {filename}",
+                "console": true
+            },
+            "enable-prompts": false,
+            "exec": {
+                "command": "/bin/bash",
+                "shell": true
+            },
+            "execution-environment": {
+                "container-engine": "docker",
+                "enabled": true,
+                "image": "apache-ee:latest",
+                "pull": {
+                    "policy": "never"
+                },
+                "volume-mounts": [
+                    {
+                        "dest": "/inventario",
+                        "options": "ro",
+                        "src": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/inventario"
+                    }
+                ]
+            },
+            "format": "yaml",
+            "images": {
+                "details": [
+                    "everything"
+                ]
+            },
+            "logging": {
+                "append": true,
+                "file": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/ansible-navigator.log",
+                "level": "info"
+            },
+            "mode": "stdout",
+            "playbook-artifact": {
+                "enable": true,
+                "save-as": "./artifacts/{playbook_name}-artifact-{time_stamp}.json"
+            },
+            "settings": {
+                "effective": false,
+                "sample": false,
+                "schema": "json",
+                "sources": false
+            },
+            "time-zone": "UTC"
+        }
+    },
+    "settings_sources": {
+        "ansible-navigator.ansible-builder.help": "Defaults",
+        "ansible-navigator.ansible-builder.workdir": "Defaults",
+        "ansible-navigator.ansible-lint.config": "Not set",
+        "ansible-navigator.ansible-lint.lintables": "Not set",
+        "ansible-navigator.ansible-runner.artifact-dir": "Not set",
+        "ansible-navigator.ansible-runner.job-events": "Defaults",
+        "ansible-navigator.ansible-runner.rotate-artifacts-count": "Not set",
+        "ansible-navigator.ansible-runner.timeout": "Not set",
+        "ansible-navigator.ansible.cmdline": "Command line",
+        "ansible-navigator.ansible.config.help": "Defaults",
+        "ansible-navigator.ansible.config.path": "Not set",
+        "ansible-navigator.ansible.doc.help": "Defaults",
+        "ansible-navigator.ansible.doc.plugin.name": "Not set",
+        "ansible-navigator.ansible.doc.plugin.type": "Defaults",
+        "ansible-navigator.ansible.inventory.entries": "Settings file",
+        "ansible-navigator.ansible.inventory.help": "Defaults",
+        "ansible-navigator.ansible.playbook.help": "Defaults",
+        "ansible-navigator.ansible.playbook.path": "Command line",
+        "ansible-navigator.app": "Command line",
+        "ansible-navigator.collection-doc-cache-path": "Defaults",
+        "ansible-navigator.color.enable": "Defaults",
+        "ansible-navigator.color.osc4": "Defaults",
+        "ansible-navigator.editor.command": "Defaults",
+        "ansible-navigator.editor.console": "Defaults",
+        "ansible-navigator.enable-prompts": "Defaults",
+        "ansible-navigator.exec.command": "Defaults",
+        "ansible-navigator.exec.shell": "Defaults",
+        "ansible-navigator.execution-environment.container-engine": "Automatically determined",
+        "ansible-navigator.execution-environment.container-options": "Not set",
+        "ansible-navigator.execution-environment.enabled": "Settings file",
+        "ansible-navigator.execution-environment.environment-variables.pass": "Not set",
+        "ansible-navigator.execution-environment.environment-variables.set": "Not set",
+        "ansible-navigator.execution-environment.image": "Settings file",
+        "ansible-navigator.execution-environment.pull.arguments": "Not set",
+        "ansible-navigator.execution-environment.pull.policy": "Settings file",
+        "ansible-navigator.execution-environment.volume-mounts": "Settings file",
+        "ansible-navigator.format": "Defaults",
+        "ansible-navigator.images.details": "Defaults",
+        "ansible-navigator.inventory-columns": "Not set",
+        "ansible-navigator.logging.append": "Defaults",
+        "ansible-navigator.logging.file": "Settings file",
+        "ansible-navigator.logging.level": "Settings file",
+        "ansible-navigator.mode": "Command line",
+        "ansible-navigator.playbook-artifact.enable": "Settings file",
+        "ansible-navigator.playbook-artifact.replay": "Not set",
+        "ansible-navigator.playbook-artifact.save-as": "Settings file",
+        "ansible-navigator.settings.effective": "Defaults",
+        "ansible-navigator.settings.sample": "Defaults",
+        "ansible-navigator.settings.schema": "Defaults",
+        "ansible-navigator.settings.sources": "Defaults",
+        "ansible-navigator.time-zone": "Defaults",
+        "settings_file_path": "/Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/ansible-navigator.yml",
+        "settings_file_source": "Search path"
+    },
+    "status": "failed",
+    "status_color": 9,
+    "stdout": [
+        "",
+        "PLAY [Despliegue de Web en Apache] *********************************************",
+        "",
+        "TASK [Cargar variables internas necesarias para la ejecución del playbook] *****",
+        "\u001b[0;32mok: [rocky8]\u001b[0m",
+        "\u001b[0;32mok: [ubuntu22]\u001b[0m",
+        "",
+        "TASK [Cargar valores por defecto del playbook] *********************************",
+        "\u001b[0;32mok: [rocky8]\u001b[0m",
+        "\u001b[0;32mok: [ubuntu22]\u001b[0m",
+        "",
+        "TASK [Obtener el Sistema Operativo destino] ************************************",
+        "\u001b[0;32mok: [rocky8]\u001b[0m",
+        "\u001b[0;32mok: [ubuntu22]\u001b[0m",
+        "",
+        "TASK [Variables que reusamos a nivel del playbook] *****************************",
+        "\u001b[0;32mok: [rocky8]\u001b[0m",
+        "\u001b[0;32mok: [ubuntu22]\u001b[0m",
+        "",
+        "TASK [Informar de la compatibilidad del playbook con el sistema operativo destino] ***",
+        "\u001b[0;32mok: [rocky8] => {\u001b[0m",
+        "\u001b[0;32m    \"msg\": \"El sistema operativo del host es: Rocky (familia: redhat).\\nEste playbook es compatible con el sistema operativo destino.\\n\"\u001b[0m",
+        "\u001b[0;32m}\u001b[0m",
+        "\u001b[0;32mok: [ubuntu22] => {\u001b[0m",
+        "\u001b[0;32m    \"msg\": \"El sistema operativo del host es: Ubuntu (familia: ubuntu).\\nEste playbook es compatible con el sistema operativo destino.\\n\"\u001b[0m",
+        "\u001b[0;32m}\u001b[0m",
+        "",
+        "TASK [Cortar la ejecución del playbook si el Sistema Operativo destino no está soportado] ***",
+        "\u001b[0;36mskipping: [rocky8]\u001b[0m",
+        "",
+        "TASK [Cortar la ejecución del playbook si el Sistema Operativo destino no está soportado] ***",
+        "\u001b[0;36mskipping: [ubuntu22]\u001b[0m",
+        "",
+        "TASK [Verificar que la URL del repo de git se ha suministrado y es accesible] ***",
+        "\u001b[0;32mok: [rocky8]\u001b[0m",
+        "\u001b[0;32mok: [ubuntu22]\u001b[0m",
+        "",
+        "TASK [Asegurar que está instalada la paquetería necesaria para el playbook] ****",
+        "\u001b[0;36mincluded: /Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/pre-tasks/tareas.instalacion.paqueteria.yaml for rocky8, ubuntu22\u001b[0m",
+        "",
+        "TASK [Asegurar que los paquetes requeridos por el playbook quedan instalados] ***",
+        "\u001b[0;36mincluded: /Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/utils/redhat/tareas.instalacion.paquete.yaml for rocky8 => (item={'nombre': 'git', 'version': '2.54.0', 'version_matching': 'major', 'redhat': {'directorio_configuracion_aplicacion': None, 'repo': None}, 'ubuntu': {'directorio_configuracion_aplicacion': None, 'repo': {'nombre': 'git-core', 'uris': 'https://ppa.launchpadcontent.net/git-core/ppa/ubuntu', 'suites': 'Green Obsidian', 'components': 'main', 'clave': 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xE1DD270288B4E6030699E45FA1715D88E1DF1F24'}}})\u001b[0m",
+        "\u001b[0;36mincluded: /Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/utils/redhat/tareas.instalacion.paquete.yaml for rocky8 => (item={'nombre': 'curl', 'version_matching': 'latest'})\u001b[0m",
+        "\u001b[0;36mincluded: /Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/utils/ubuntu/tareas.instalacion.paquete.yaml for ubuntu22 => (item={'nombre': 'git', 'version': '2.54.0', 'version_matching': 'major', 'redhat': {'directorio_configuracion_aplicacion': None, 'repo': None}, 'ubuntu': {'directorio_configuracion_aplicacion': None, 'repo': {'nombre': 'git-core', 'uris': 'https://ppa.launchpadcontent.net/git-core/ppa/ubuntu', 'suites': 'jammy', 'components': 'main', 'clave': 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xE1DD270288B4E6030699E45FA1715D88E1DF1F24'}}})\u001b[0m",
+        "\u001b[0;36mincluded: /Users/ivan/Documents/Cursos/cursoAnsible/proyectos/apache/utils/ubuntu/tareas.instalacion.paquete.yaml for ubuntu22 => (item={'nombre': 'curl', 'version_matching': 'latest'})\u001b[0m",
+        "",
+        "TASK [Asegurar que el repositorio DNF queda registrado si se ha indicado para git] ***",
+        "\u001b[0;36mskipping: [rocky8]\u001b[0m",
+        "",
+        "TASK [Asegurar que queda instalado el paquete git] *****************************",
+        "\u001b[0;31mfatal: [rocky8]: FAILED! => {\"ansible_facts\": {\"pkg_mgr\": \"dnf\"}, \"changed\": false, \"msg\": \"Could not import the dnf python module using /usr/bin/python3.11 (3.11.13 (main, Apr 28 2026, 13:06:52) [GCC 8.5.0 20210514 (Red Hat 8.5.0-28)]). Please install `python3-dnf` package or ensure you have specified the correct ansible_python_interpreter. (attempted ['/usr/libexec/platform-python', '/usr/bin/python3', '/usr/bin/python'])\", \"results\": []}\u001b[0m",
+        "",
+        "TASK [Asegurar que el repositorio APT (deb822) queda registrado si se ha indicado para git] ***",
+        "\u001b[0;31mAn exception occurred during task execution. To see the full traceback, use -vvv. The error was: ModuleNotFoundError: No module named 'debian'\u001b[0m",
+        "\u001b[0;31mfatal: [ubuntu22]: FAILED! => {\"changed\": false, \"msg\": \"Failed to import the required Python library (python3-debian) on ubuntu22's Python /usr/bin/python3. Please read the module documentation and install it in the appropriate location. If the required library is installed, but Ansible is using the wrong Python interpreter, please consult the documentation on ansible_python_interpreter\"}\u001b[0m",
+        "",
+        "PLAY RECAP *********************************************************************",
+        "\u001b[0;31mrocky8\u001b[0m                     : \u001b[0;32mok=9   \u001b[0m changed=0    unreachable=0    \u001b[0;31mfailed=1   \u001b[0m \u001b[0;36mskipped=1   \u001b[0m rescued=0    ignored=0   ",
+        "\u001b[0;31mubuntu22\u001b[0m                   : \u001b[0;32mok=9   \u001b[0m changed=0    unreachable=0    \u001b[0;31mfailed=1   \u001b[0m skipped=0    rescued=0    ignored=0   "
+    ],
+    "version": "2.0.0"
+}

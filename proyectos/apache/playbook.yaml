@@ -39,7 +39,7 @@
               - configuracion-apache
         - name:                          Configurar conectividad de la aplicación
           ansible.builtin.include_tasks: 
-            file:                        "tasks/{{ ansible_distribution | lower }}/tareas.configuracion.firewall.yaml"
+            file:                        "tasks/{{ familia }}/tareas.configuracion.firewall.yaml"
             apply:
               tags:
                 - configuracion-firewall

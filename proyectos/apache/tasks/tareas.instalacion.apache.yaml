@@ -6,8 +6,8 @@
 - name:                           Calcular datos efectivos de Apache
   ansible.builtin.set_fact:
     paquete_efectivo:
-      nombre:                     "{{ (paquete[ansible_distribution | lower] | default({})).paquete | default(paquete.nombre) }}"
-      servicio:                   "{{ (paquete[ansible_distribution | lower] | default({})).servicio | default(paquete.servicio | default(paquete.nombre)) }}"
+      nombre:                     "{{ (paquete[familia] | default({})).paquete | default(paquete.nombre) }}"
+      servicio:                   "{{ (paquete[familia] | default({})).servicio | default(paquete.servicio | default(paquete.nombre)) }}"
       version:                    "{{ paquete.version | default('') }}"
       version_matching: >-
                                   {% if paquete.version is not defined or not paquete.version %}
@@ -15,7 +15,7 @@
                                   {% else %}
                                   {{ paquete.version_matching | default('equals') }}
                                   {% endif %}
-      repo:                       "{{ (paquete[ansible_distribution | lower] | default({})).repo | default({}, true) }}"
+      repo:                       "{{ (paquete[familia] | default({})).repo | default({}, true) }}"
 
 - name:                           Calcular versión final solicitada
   ansible.builtin.set_fact:
@@ -43,7 +43,7 @@
 
 - name:                           Obtener la versión candidata de Apache
   ansible.builtin.include_tasks:
-    file:                         "tasks/{{ ansible_distribution | lower }}/tareas.version.candidata.paquete.yaml"
+    file:                         "tasks/{{ familia }}/tareas.version.candidata.paquete.yaml"
     apply:
       tags:
         - instalacion-apache
@@ -68,15 +68,15 @@
     name:                         "{{ paquete_efectivo.servicio }}"
     state:                        stopped
   become:                         true
-  when:                           apache_requiere_cambio_version
+  when:                           apache_requiere_cambio_version and (apache_version_instalada | trim | length > 0)
   notify:                         APACHE_DETENIDO
 
 - name:                           Asegurar que Apache queda instalado en la versión que me interesa
   ansible.builtin.include_tasks:
-    file:                         "utils/{{ ansible_distribution | lower }}/tareas.instalacion.paquete.yaml"
+    file:                         "utils/{{ familia }}/tareas.instalacion.paquete.yaml"
     apply:
       tags:
         - instalacion-apache
+      notify:                     CAMBIO_EN_APACHE   # notify va en apply, no en el include
   tags:
     - instalacion-apache
-  notify:                         CAMBIO_EN_APACHE

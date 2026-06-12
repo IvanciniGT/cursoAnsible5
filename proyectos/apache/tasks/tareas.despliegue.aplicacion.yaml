@@ -1,6 +1,12 @@
 - name:               Asegurar que existe el directorio de instalación
   ansible.builtin.file:
-    path:             configuracion_despliegue_apache.aplicacion.deploy.path
+    path:             "{{ configuracion_despliegue_apache.aplicacion.deploy.path }}"
+    state:            directory
+  become:             true
+
+- name:               Asegurar que existe el directorio de backups
+  ansible.builtin.file:
+    path:             "{{ requisitos_despliegue_apache.directorio_backups_aplicacion }}"
     state:            directory
 
 - name:               Asegurar que tengo la ultima version del repo en local en un directorio temporal
@@ -36,7 +42,7 @@
       changed_when:                     false
           
     - name:           Copia de seguridad del directorio de la aplicacion
-      ansible.builtin.archive:
+      community.general.archive:
         format:       zip
         path:         "{{ configuracion_despliegue_apache.aplicacion.deploy.path }}/"
         dest:         "{{ requisitos_despliegue_apache.directorio_backups_aplicacion }}/backup_{{ backup_ts.stdout | trim }}.zip"
@@ -46,12 +52,14 @@
         src:          "{{ requisitos_despliegue_apache.directorio_temporal_clonado_aplicacion }}/"
         dest:         "{{ configuracion_despliegue_apache.aplicacion.deploy.path }}"
         remote_src: yes
+      become:           true
       notify:           CAMBIO_EN_APLICACION
 
     - name:             Borrar la carpeta .git
       ansible.builtin.file:
         path:           "{{ configuracion_despliegue_apache.aplicacion.deploy.path }}/.git"
         state:          absent
+      become:           true
       notify:           CAMBIO_EN_APLICACION
   
   when: cambios_en_aplicacion_identificados_por_git.changed or cambios_en_aplicacion_identificados_por_diff.changed

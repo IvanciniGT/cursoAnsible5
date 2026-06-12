@@ -13,14 +13,17 @@
     state:                       started
     timeout:                     30
 
-- name:                          Comprobar que la URL responda desde la máquina
+- name:                          Comprobar que la URL responde con el código esperado desde la máquina
   ansible.builtin.command:
-    cmd:                        "curl -s -o /dev/null -w '{{ http_status_code }}' http://127.0.0.1:{{ http_port }}{{ http_endpoint }}"
-  #changed_when:                 false # Por defecto los modulos de ansible command y shell siempre marcan la tarea como "CHANGED"... en este caso no tiene sentido
+    cmd:                        "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:{{ http_port }}{{ http_endpoint }}"
+  register:                     respuesta_local
+  changed_when:                 false
+  # Valida de verdad: falla si el código HTTP no es el esperado (p.ej. 403)
+  failed_when:                  respuesta_local.stdout | trim != (http_status_code | string)
 
 - name:                         Comprobar que la URL responda desde fuera (por ejemplo desde donde estoy ejecutando el playbook)
   ansible.builtin.uri:
-    url:                         "http://{{ http_host_header }}:{{ http_port }}{{ http_endpoint }}"
+    url:                         "http://{{ ansible_host }}:{{ http_port }}{{ http_endpoint }}" # IP de la VM, no localhost
     status_code:                 "{{ http_status_code }}"
     timeout:                     10
     return_content:              no

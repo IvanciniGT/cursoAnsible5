@@ -1,3 +1,11 @@
+- name:                           Asegurar python3-debian (lo necesita deb822_repository) si se va a registrar un repo
+  ansible.builtin.apt:
+    name:                         python3-debian
+    state:                        present
+    update_cache:                 true
+  become:                         true
+  when: (paquete_efectivo.repo.uris | default(paquete_efectivo.repo.url) | default('')) | length > 0
+
 - name:                           Asegurar que el repositorio APT (deb822) queda registrado si se ha indicado para {{ paquete_efectivo.nombre }}
   ansible.builtin.deb822_repository: # Sustituye a apt_key + apt_repository (ambos deprecados); 'signed_by' gestiona la clave GPG
     name:                         "{{ paquete_efectivo.repo.nombre }}"

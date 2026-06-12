@@ -1,14 +1,14 @@
 
 - name:                           Asegurar que los paquetes requeridos por el playbook quedan instalados
-  ansible.builtin.include_tasks:  "utils/{{ ansible_distribution | lower }}/tareas.instalacion.paquete.yaml"
+  ansible.builtin.include_tasks:  "utils/{{ familia }}/tareas.instalacion.paquete.yaml"
   loop:                           "{{ requisitos_despliegue_apache.paquetes }}"
   loop_control:
     loop_var:                     paquete # La variable que contendrá cada uno de los items de la lista en cada iteración
   vars:
     # Normalización común a todas las distros. La clave del paquete (ubuntu|redhat)
-    # coincide con "ansible_distribution | lower", así que la resolvemos genéricamente.
+    # coincide con "familia", así que la resolvemos genéricamente.
     paquete_efectivo:
-                                  nombre: "{{ (paquete[ansible_distribution | lower] | default({})).paquete | default(paquete.nombre) }}"
+                                  nombre: "{{ (paquete[familia] | default({})).paquete | default(paquete.nombre) }}"
                                   version: "{{ paquete.version | default('') }}"
                                   version_matching: >-
                                     {% if paquete.version is not defined or not paquete.version %}
@@ -16,7 +16,7 @@
                                     {% else %}
                                     {{ paquete.version_matching | default('equals') }}
                                     {% endif %}
-                                  repo: "{{ (paquete[ansible_distribution | lower] | default({})).repo | default({}) }}"
+                                  repo: "{{ (paquete[familia] | default({})).repo | default({}) }}"
     # Parte de la versión común a todas las distros (sin nombre ni separador).
     # 'latest' deja la cadena vacía; cada distro añade su separador (= en apt, - en dnf).
     version_final: >-

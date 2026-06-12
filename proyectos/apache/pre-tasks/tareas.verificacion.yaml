@@ -1,21 +1,21 @@
 - name:                   Informar de la compatibilidad del playbook con el sistema operativo destino
   ansible.builtin.debug:
     msg:  |-
-                          El sistema operativo del host es: {{ ansible_distribution }}.
-                          {% if ansible_distribution in requisitos_despliegue_apache.distros_soportadas %}
+                          El sistema operativo del host es: {{ ansible_distribution }} (familia: {{ familia }}).
+                          {% if familia in requisitos_despliegue_apache.distros_soportadas %}
                           Este playbook es compatible con el sistema operativo destino.
-                          {% else %} 
+                          {% else %}
                           Este playbook NO es compatible con el sistema operativo destino.
                           {% endif %}
 
 - name:                   Cortar la ejecución del playbook si el Sistema Operativo destino no está soportado
-  ansible.builtin.meta:   end-host
-  when:                   ansible_distribution not in requisitos_despliegue_apache.distros_soportadas
+  ansible.builtin.meta:   end_host
+  when:                   familia not in requisitos_despliegue_apache.distros_soportadas
   
                           #ansible_distribution == "Ubuntu" or ansible_distribution == "Redhat" > Problemas de mnto futuro si aumentan SOs
 
 - name:                   Verificar que la URL del repo de git se ha suministrado y es accesible
   ansible.builtin.uri:
-    url:                  "{{ configuracion_despliegue_apache.repo.url }}"
+    url:                  "{{ configuracion_despliegue_apache.aplicacion.repo.url }}"
     method:               GET
     status_code:          200

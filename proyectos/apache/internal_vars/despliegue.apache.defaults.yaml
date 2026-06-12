@@ -3,9 +3,11 @@ apache:
     version_matching:           minor        # instala la serie 2.4.* -> "apache2=2.4*"
     redhat:
         paquete:                httpd
+        directorio_configuracion: /etc/httpd/conf.d            # auto-incluido por httpd
         repo:                                # httpd viene en los repos base de RHEL/Rocky -> sin repo extra
     ubuntu:
         paquete:                apache2
+        directorio_configuracion: /etc/apache2/sites-enabled   # auto-incluido por apache2
         repo:                                # PPA ondrej/apache2 en formato deb822
             nombre:             ondrej-apache2
             uris:               https://ppa.launchpadcontent.net/ondrej/apache2/ubuntu

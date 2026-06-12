@@ -1,0 +1,48 @@
+---
+# Configuración de ansible-navigator para este proyecto.
+# Doc: https://ansible.readthedocs.io/projects/navigator/settings/
+#
+# Ejecutar el playbook (modo stdout, como ansible-playbook):
+#   ansible-navigator run playbook.yaml -i ../inventario/inventario.ini
+#
+# Modo TUI interactivo:
+#   ansible-navigator run playbook.yaml --mode interactive
+
+ansible-navigator:
+  # --- Execution Environment ---
+  execution-environment:
+    enabled: true
+    image: apache-ee:latest          # imagen construida con execution-environment.yml
+    container-engine: auto           # auto = podman si existe; si no, docker (Mac=docker, rocky8=podman)
+    pull:
+      policy: never                  # 'never' = usa la imagen local (no la baja de un registro)
+    # Volumen inyectado en el contenedor con el inventario y la clave SSH.
+    # src es RELATIVO a esta carpeta (el Mac es el controlador); se monta en
+    # /inventario dentro del EE. El inventario referencia la clave por ese path
+    # de contenedor (/inventario/id_curso).
+    #   ro = solo lectura.  (Sin 'Z': en podman-machine de macOS no aplica)
+    #   Si navigator se queja del src relativo, pon la ruta absoluta del Mac.
+    volume-mounts:
+      - src: "../inventario"
+        dest: "/inventario"
+        options: "ro"
+
+  # --- Comportamiento por defecto ---
+  mode: stdout                       # stdout (como ansible-playbook) | interactive (TUI)
+
+  playbook-artifact:
+    enable: true
+    save-as: "./artifacts/{playbook_name}-artifact-{time_stamp}.json"
+
+  logging:
+    level: info
+    file: ./ansible-navigator.log
+
+  # --- Inventario ---
+  # Ruta RELATIVA al proyecto (portable: igual en el Mac y tras el git clone en
+  # rocky8). navigator monta el fichero de inventario en el EE automáticamente;
+  # la clave SSH la resuelve por el volumen montado en /inventario (ver arriba).
+  ansible:
+    inventory:
+      entries:
+        - ../inventario/inventario.ini

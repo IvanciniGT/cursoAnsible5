@@ -1,0 +1,25 @@
+---
+# Definición del Execution Environment (EE) para ansible-navigator.
+#
+# Construye una imagen de contenedor con ansible-core + las colecciones
+# de Galaxy de requirements.yml. Se construye con ansible-builder:
+#
+#   pip3.11 install ansible-builder
+#   ansible-builder build -t apache-ee:latest -f execution-environment.yml -v3
+#
+# La imagen resultante (apache-ee:latest) es la que referencia
+# ansible-navigator.yml.
+
+version: 3
+
+images:
+  # Imagen base de Execution Environment (trae ansible-core + ansible-runner, basada en dnf).
+  # Pública. (Las antiguas quay.io/ansible/community-ee-* fueron retiradas -> 401).
+  base_image:
+    name: quay.io/ansible/awx-ee:latest
+
+dependencies:
+  # Colecciones de Galaxy a hornear dentro del EE.
+  galaxy: requirements.yml
+  # python: requirements.txt   # descomenta si necesitas librerías de Python extra
+  # system: bindep.txt         # descomenta si necesitas paquetes del SO dentro del EE

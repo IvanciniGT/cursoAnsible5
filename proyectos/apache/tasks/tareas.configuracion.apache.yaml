@@ -1,7 +1,39 @@
 - name:               Asegurar que el fichero de apache queda configurado con los detalles de la aplicación
   ansible.builtin.template:
-  src:                templates/virtual_host.j2
-  dest:               "{{ requisitos_despliegue_apache.paquetes[ ansible_distribution | lower ].directorio_configuracion_aplicacion }}/app.conf"
-  mode:               '0644'
+    src:                templates/virtual_host.j2
+    dest:               "{{ despliegue_apache_defaults.apache[familia].directorio_configuracion }}/app.conf"
+    mode:               '0644'
   become:             true
+  notify:             CAMBIO_EN_CONFIGURACION_APACHE
+
+# --- RedHat: SELinux. httpd solo sirve contenido con tipo httpd_sys_content_t ---
+- name:               (RedHat) Asegurar las utilidades de SELinux (semanage)
+  ansible.builtin.dnf:
+    name:             policycoreutils-python-utils
+    state:            present
+  become:             true
+  when:               familia == 'redhat'
+
+- name:               (RedHat) Fijar el contexto SELinux del path de despliegue
+  community.general.sefcontext:
+    target:           "{{ configuracion_despliegue_apache.aplicacion.deploy.path }}(/.*)?"
+    setype:           httpd_sys_content_t
+    state:            present
+  become:             true
+  when:               familia == 'redhat'
+
+- name:               (RedHat) Aplicar el contexto con restorecon
+  ansible.builtin.command: "restorecon -irv {{ configuracion_despliegue_apache.aplicacion.deploy.path }}"
+  become:             true
+  when:               familia == 'redhat'
+  register:           restorecon_resultado
+  changed_when:       restorecon_resultado.stdout | trim | length > 0
+
+# --- Ubuntu: que sirva NUESTRO vhost y no el sitio por defecto ---
+- name:               (Ubuntu) Deshabilitar el sitio por defecto (000-default)
+  ansible.builtin.command: a2dissite 000-default
+  become:             true
+  when:               familia == 'ubuntu'
+  register:           a2dissite_resultado
+  changed_when:       "'already disabled' not in a2dissite_resultado.stdout"
   notify:             CAMBIO_EN_CONFIGURACION_APACHE

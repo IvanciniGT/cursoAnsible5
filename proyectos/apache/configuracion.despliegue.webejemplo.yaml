@@ -1,0 +1,27 @@
+# Config de despliegue para la prueba (se pasa con: -e @configuracion.despliegue.webejemplo.yaml)
+# Estructura = vars/plantilla_configuracion_despliegue_apache.yaml
+configuracion_despliegue_apache:
+
+  apache:
+    version:                        # vacío => latest (de los repos base de la distro)
+    version_matching:               # vacío => latest
+    redhat:
+      paquete:        httpd
+      servicio:       httpd
+      repo:                         # httpd está en los repos base -> sin repo extra
+    ubuntu:
+      paquete:        apache2
+      servicio:       apache2
+      repo:                         # apache2 está en los repos base -> sin repo extra
+
+  aplicacion:
+    repo:
+      url:            https://github.com/IvanciniGT/webEjemploAnsible
+      tag:            HEAD
+    deploy:
+      puerto:         80
+      fqdn:           "*"
+      path:           /var/apache/aplicacion
+    test:
+      endpoint:       /
+      statusCode:     200

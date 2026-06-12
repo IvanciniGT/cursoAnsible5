@@ -20,6 +20,9 @@
 
 - name:                          Variables que reusamos a nivel del playbook
   ansible.builtin.set_fact:
+      # Familia del SO (redhat/ubuntu): selecciona tareas, utils y claves por distro.
+      # Derivada de ansible_os_family para soportar clones de RHEL (Rocky, Alma, CentOS...).
+      familia:                  "{{ 'redhat' if ansible_os_family == 'RedHat' else 'ubuntu' if ansible_os_family == 'Debian' else ansible_os_family | lower }}"
       http_port:                "{{ configuracion_despliegue_apache.aplicacion.deploy.puerto | default(despliegue_apache_defaults.aplicacion.deploy.puerto) }}"
       http_endpoint:            "{{ configuracion_despliegue_apache.aplicacion.test.endpoint | default(despliegue_apache_defaults.aplicacion.test.endpoint) }}"
       http_status_code:         "{{ configuracion_despliegue_apache.aplicacion.test.statusCode | default(despliegue_apache_defaults.aplicacion.test.statusCode) }}"
